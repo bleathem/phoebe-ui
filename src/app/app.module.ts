@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ChartsModule } from '../charts/charts.module'
 
 import { AppComponent } from './app.component';
 import { IntroComponent } from './intro/intro.component';
@@ -22,7 +23,8 @@ import { PipelineSelectionComponent } from './pipeline-selection/pipeline-select
     PipelineSelectionComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
