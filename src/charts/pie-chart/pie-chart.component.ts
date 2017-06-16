@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -7,6 +7,7 @@ import * as c3 from 'c3';
   styleUrls: ['./pie-chart.component.less']
 })
 export class PieChartComponent implements OnInit {
+  @Input() data: (string | number)[][];
 
   constructor(private el: ElementRef) {
   }
@@ -17,21 +18,21 @@ export class PieChartComponent implements OnInit {
     var pieData = {
       type : 'pie',
       colors: {
-        Dogs: patternfly.pfPaletteColors.red,
-        Cats: patternfly.pfPaletteColors.blue,
-        Fish: patternfly.pfPaletteColors.orange,
-        Hamsters: patternfly.pfPaletteColors.green
+        Failed: patternfly.pfPaletteColors.red,
+        Skipped: patternfly.pfPaletteColors.blue,
+        Passed: patternfly.pfPaletteColors.orange,
+        Error: patternfly.pfPaletteColors.green
       },
-      columns: [
-        ['Dogs', 3],
-        ['Cats', 2],
-        ['Fish', 10],
-        ['Hamsters', 2]
-      ],
+      columns: null,
       onclick: function (d, i) { console.log("onclick", d, i); },
       onmouseover: function (d, i) { console.log("onmouseover", d, i); },
       onmouseout: function (d, i) { console.log("onmouseout", d, i); }
     };
+    pieData.columns = this.data || [['Failed', 2],
+      ['Skipped', 1],
+      ['Passed', 4],
+      ['Error', 10]
+    ];
 
     // Pie chart
     var pieChart1 = c3ChartDefaults.getDefaultPieConfig();
