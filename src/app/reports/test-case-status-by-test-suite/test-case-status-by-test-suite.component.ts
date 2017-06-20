@@ -18,11 +18,11 @@ export class TestCaseStatusByTestSuiteComponent implements OnInit {
   constructor(private testCaseStatusService: TestCaseStatusService) {  }
 
   ngOnInit() {
-    this.testCaseStatusService.data.subscribe(data => this.chart1Data = data);
-    this.testCaseStatusService.data.subscribe(data => this.chart2Data = data);
-    this.testCaseStatusService.data.subscribe(data => this.chart3Data = data);
-    this.testCaseStatusService.data.subscribe(data => this.chart4Data = data);
-    this.testCaseStatusService.data.subscribe(data => this.chart5Data = data);
-    this.testCaseStatusService.data.subscribe(data => this.chart6Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart1Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart2Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart3Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart4Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart5Data = data);
+    this.testCaseStatusService.byTestSuiteObservable.subscribe(data => this.chart6Data = data);
   }
 }

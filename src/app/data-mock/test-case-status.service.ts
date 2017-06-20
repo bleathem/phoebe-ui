@@ -3,19 +3,47 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class TestCaseStatusService {
-  public data: Observable<(string | number)[][]>;
+  public byTestSuiteObservable: Observable<(string | number)[][]>;
+  public byPipelineRunObservable: Observable<(string | number)[][]>;
 
   constructor() {
-    this.data = new Observable(observer => {
+    this.byTestSuiteObservable = new Observable(observer => {
       let delay = this.getRandomInt(100, 500);
       setTimeout(() => {
+        observer.next([['Failed', this.getRandomInt(5, 30)],
+          ['Skipped', this.getRandomInt(5, 10)],
+          ['Passed', this.getRandomInt(30, 80)],
+          ['Error', this.getRandomInt(5, 30)]
+        ]);
         setInterval(() => {
           observer.next([['Failed', this.getRandomInt(5, 30)],
             ['Skipped', this.getRandomInt(5, 10)],
             ['Passed', this.getRandomInt(30, 80)],
             ['Error', this.getRandomInt(5, 30)]
           ]);
-        }, this.getRandomInt(800, 1000));
+        }, this.getRandomInt(1600, 3200));
+      }, delay);
+      });
+
+    this.byPipelineRunObservable = new Observable(observer => {
+      let delay = this.getRandomInt(100, 500);
+      setTimeout(() => {
+        observer.next([
+          this.getRandomArray('data1', 30, 400, 6),
+          this.getRandomArray('data2', 30, 400, 6),
+          this.getRandomArray('data3', 30, 400, 6),
+          this.getRandomArray('data4', 30, 400, 6),
+          this.getRandomArray('data5', 30, 400, 6)
+        ]);
+        setInterval(() => {
+          observer.next([
+            this.getRandomArray('data1', 30, 400, 6),
+            this.getRandomArray('data2', 30, 400, 6),
+            this.getRandomArray('data3', 30, 400, 6),
+            this.getRandomArray('data4', 30, 400, 6),
+            this.getRandomArray('data5', 30, 400, 6)
+          ]);
+        }, this.getRandomInt(1600, 3200));
       }, delay);
       });
   }
@@ -25,5 +53,15 @@ export class TestCaseStatusService {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  private getRandomArray(name, min, max, length) {
+    let arr: (string | number)[] = [];
+    arr[0] = name;
+    for (let i=1; i<= length; i++) {
+      arr[i] = this.getRandomInt(min, max);
+    }
+    console.log(arr);
+    return arr;
   }
 }

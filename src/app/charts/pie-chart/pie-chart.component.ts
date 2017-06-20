@@ -8,7 +8,7 @@ import * as c3 from 'c3';
 })
 export class PieChartComponent implements OnInit, OnChanges {
   @Input() data: (string | number)[][];
-  pieChart: any;
+  chart: any;
 
   constructor(private el: ElementRef) {
   }
@@ -48,12 +48,12 @@ export class PieChartComponent implements OnInit, OnChanges {
       ['Passed', 0],
       ['Error', 0]
     ];
-    this.pieChart = c3.generate(pieChartConfig);
+    this.chart = c3.generate(pieChartConfig);
   }
 
   ngOnChanges() {
-    if (this.pieChart && this.data) {
-      this.pieChart.load({ columns: this.data });
+    if (this.chart && this.data) {
+      this.chart.load({ columns: this.data });
     }
   }
 }
