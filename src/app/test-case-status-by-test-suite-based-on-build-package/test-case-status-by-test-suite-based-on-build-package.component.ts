@@ -1,5 +1,6 @@
 import { Component, Output, OnInit } from '@angular/core';
 import * as c3 from 'c3';
+import { TestCaseStatusService } from '../data-mock/test-case-status.service'
 
 @Component({
   selector: 'app-test-case-status-by-test-suite-based-on-build-package',
@@ -14,39 +15,15 @@ export class TestCaseStatusByTestSuiteBasedOnBuildPackageComponent implements On
   @Output() chart5Data: (string | number)[][];
   @Output() chart6Data: (string | number)[][];
 
-  constructor() { }
+  constructor(private testCaseStatusService: TestCaseStatusService) { }
 
   ngOnInit() {
-    this.chart2Data = [['Failed', 2],
-      ['Skipped', 1],
-      ['Passed', 4],
-      ['Error', 10]
-    ];
-    this.chart1Data = [['Failed', 12],
-      ['Skipped', 5],
-      ['Passed', 1],
-      ['Error', 3]
-    ];
-    this.chart5Data = [['Failed', 1],
-      ['Skipped', 8],
-      ['Passed', 12],
-      ['Error', 3]
-    ];
-    this.chart3Data = [['Failed', 6],
-      ['Skipped', 3],
-      ['Passed', 12],
-      ['Error', 6]
-    ];
-    this.chart6Data = [['Failed', 4],
-      ['Skipped', 5],
-      ['Passed', 14],
-      ['Error', 30]
-    ];
-    this.chart5Data = [['Failed', 2],
-      ['Skipped', 15],
-      ['Passed', 4],
-      ['Error', 13]
-    ];
+    this.testCaseStatusService.data.subscribe(data => this.chart1Data = data);
+    this.testCaseStatusService.data.subscribe(data => this.chart2Data = data);
+    this.testCaseStatusService.data.subscribe(data => this.chart3Data = data);
+    this.testCaseStatusService.data.subscribe(data => this.chart4Data = data);
+    this.testCaseStatusService.data.subscribe(data => this.chart5Data = data);
+    this.testCaseStatusService.data.subscribe(data => this.chart6Data = data);
   }
 
 }

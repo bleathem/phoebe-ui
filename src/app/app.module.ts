@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ChartsModule } from '../charts/charts.module'
+import { ChartsModule } from '../charts/charts.module';
+import { DataMockModule } from './data-mock/data-mock.module';
 
 import { AppComponent } from './app.component';
 import { IntroComponent } from './intro/intro.component';
@@ -24,7 +25,8 @@ import { PipelineSelectionComponent } from './pipeline-selection/pipeline-select
   ],
   imports: [
     BrowserModule,
-    ChartsModule
+    ChartsModule,
+    DataMockModule
   ],
   providers: [],
   bootstrap: [AppComponent]
