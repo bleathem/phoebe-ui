@@ -1,7 +1,13 @@
 <h2 id="report2">Report #2: Test Case Status by Das Host based on Pipeline Run</h2>
 <div id="line-chart-3" class="line-chart-pf"></div>
-<p><button class="btn btn-primary btn-md " type="button">View Details</button></p>
-<table class="table table-striped table-bordered">
+<p>
+  <button class="btn btn-primary btn-md "
+          (click)="hideDetails = !hideDetails"
+          type="button">
+          {{hideDetails ? "View" : "Hide"}} Details
+  </button>
+</p>
+<table [hidden]="hideDetails" class="table table-striped table-bordered">
   <thead>
     <tr>
       <th></th>

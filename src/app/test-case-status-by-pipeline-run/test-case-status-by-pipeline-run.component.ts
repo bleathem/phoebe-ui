@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -7,6 +7,7 @@ import * as c3 from 'c3';
   styleUrls: ['./test-case-status-by-pipeline-run.component.less']
 })
 export class TestCaseStatusByPipelineRunComponent implements OnInit {
+  @Input() hideDetails: boolean = true;
 
   constructor() { }
 
