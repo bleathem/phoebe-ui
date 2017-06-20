@@ -17,11 +17,13 @@ export class TestCaseStatusByTestSuiteComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.chart1Data = [['Failed', 2],
+    setTimeout(() => {
+      this.chart1Data = [['Failed', 2],
       ['Skipped', 1],
       ['Passed', 4],
       ['Error', 10]
     ];
+  }, 1000)
     this.chart2Data = [['Failed', 12],
       ['Skipped', 5],
       ['Passed', 1],

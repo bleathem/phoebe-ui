@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, OnChanges } from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -6,8 +6,10 @@ import * as c3 from 'c3';
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.less']
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
   @Input() data: (string | number)[][];
+  pieChart: any;
+  initialized: boolean = false;
 
   constructor(private el: ElementRef) {
   }
@@ -28,25 +30,33 @@ export class PieChartComponent implements OnInit {
       onmouseover: function (d, i) { console.log("onmouseover", d, i); },
       onmouseout: function (d, i) { console.log("onmouseout", d, i); }
     };
-    pieData.columns = this.data || [['Failed', 2],
-      ['Skipped', 1],
-      ['Passed', 4],
-      ['Error', 10]
-    ];
 
     // Pie chart
-    var pieChart1 = c3ChartDefaults.getDefaultPieConfig();
-    pieChart1.bindto = this.el.nativeElement;
-    pieChart1.data = pieData;
-    pieChart1.legend = {
+    this.pieChart = c3ChartDefaults.getDefaultPieConfig();
+    this.pieChart.bindto = this.el.nativeElement;
+    this.pieChart.data = pieData;
+    this.pieChart.legend = {
       show: true,
       position: 'right'
     };
-    pieChart1.size = {
+    this.pieChart.size = {
       width: 251,
       height: 161
     };
-    var pieChartRightLegend = c3.generate(pieChart1);
+
+    this.pieChart.data.columns = this.data || [['Failed', 0],
+      ['Skipped', 0],
+      ['Passed', 0],
+      ['Error', 0]
+    ];
+    var pieChartRightLegend = c3.generate(this.pieChart);
+    this.initialized = true;
   }
 
+  ngOnChanges() {
+    if (this.initialized && this.data) {
+      this.pieChart.data.columns = this.data;
+      var pieChartRightLegend = c3.generate(this.pieChart);
+    }
+  }
 }
