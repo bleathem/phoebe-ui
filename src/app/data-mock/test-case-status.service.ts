@@ -10,10 +10,10 @@ export class TestCaseStatusService {
       let delay = this.getRandomInt(100, 500);
       setTimeout(() => {
         setInterval(() => {
-          observer.next([['Failed', this.getRandomInt(1, 20)],
-            ['Skipped', this.getRandomInt(1, 20)],
-            ['Passed', this.getRandomInt(1, 20)],
-            ['Error', this.getRandomInt(1, 20)]
+          observer.next([['Failed', this.getRandomInt(5, 30)],
+            ['Skipped', this.getRandomInt(5, 10)],
+            ['Passed', this.getRandomInt(30, 80)],
+            ['Error', this.getRandomInt(5, 30)]
           ]);
         }, this.getRandomInt(800, 1000));
       }, delay);

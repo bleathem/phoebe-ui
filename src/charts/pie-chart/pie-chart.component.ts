@@ -9,7 +9,6 @@ import * as c3 from 'c3';
 export class PieChartComponent implements OnInit, OnChanges {
   @Input() data: (string | number)[][];
   pieChart: any;
-  initialized: boolean = false;
 
   constructor(private el: ElementRef) {
   }
@@ -32,31 +31,29 @@ export class PieChartComponent implements OnInit, OnChanges {
     };
 
     // Pie chart
-    this.pieChart = c3ChartDefaults.getDefaultPieConfig();
-    this.pieChart.bindto = this.el.nativeElement;
-    this.pieChart.data = pieData;
-    this.pieChart.legend = {
+    let pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
+    pieChartConfig.bindto = this.el.nativeElement;
+    pieChartConfig.data = pieData;
+    pieChartConfig.legend = {
       show: true,
       position: 'right'
     };
-    this.pieChart.size = {
+    pieChartConfig.size = {
       width: 251,
       height: 161
     };
 
-    this.pieChart.data.columns = this.data || [['Failed', 0],
+    pieChartConfig.data.columns = this.data || [['Failed', 0],
       ['Skipped', 0],
       ['Passed', 0],
       ['Error', 0]
     ];
-    var pieChartRightLegend = c3.generate(this.pieChart);
-    this.initialized = true;
+    this.pieChart = c3.generate(pieChartConfig);
   }
 
   ngOnChanges() {
-    if (this.initialized && this.data) {
-      this.pieChart.data.columns = this.data;
-      var pieChartRightLegend = c3.generate(this.pieChart);
+    if (this.pieChart && this.data) {
+      this.pieChart.load({ columns: this.data });
     }
   }
 }
