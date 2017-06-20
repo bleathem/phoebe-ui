@@ -9,12 +9,13 @@ export class TestCaseStatusService {
     this.data = new Observable(observer => {
       let delay = this.getRandomInt(100, 500);
       setTimeout(() => {
-        console.log('Data Produced!');
-        observer.next([['Failed', this.getRandomInt(1, 20)],
-          ['Skipped', this.getRandomInt(1, 20)],
-          ['Passed', this.getRandomInt(1, 20)],
-          ['Error', this.getRandomInt(1, 20)]
-        ]);
+        setInterval(() => {
+          observer.next([['Failed', this.getRandomInt(1, 20)],
+            ['Skipped', this.getRandomInt(1, 20)],
+            ['Passed', this.getRandomInt(1, 20)],
+            ['Error', this.getRandomInt(1, 20)]
+          ]);
+        }, this.getRandomInt(800, 1000));
       }, delay);
       });
   }
