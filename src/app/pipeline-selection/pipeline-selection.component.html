@@ -3,16 +3,19 @@
 </p>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-3">
-    Pipeline Run:
-    <select>
-      <option>&lt;Pipeline Run&gt;</option>
-    </select>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-3">
-    Package Build:
-    <select>
-      <option>&lt;Package Build&gt;</option>
-    </select>
-  </div>
+    <form method="post" action="" class="form-inline">
+    	<div class="col-xs-12 col-sm-6 col-md-3">
+    	<label for="pipeline" class="col-sm-2 control-label">Pipeline Run:</label>
+    	  <select id="pipeline" class="form-control col-sm-10">
+    	    <option>&lt;Pipeline Run&gt;</option>
+    	  </select>
+    	  
+    	</div>
+    	<div class="col-xs-12 col-sm-6 col-md-3">
+    	  <label for="package" class="col-sm-2 control-label">Package Build:</label>
+    	  <select id="package" class="form-control col-sm-10">
+    	    <option>&lt;Package Build&gt;</option>
+    	  </select>
+    	</div>
+    </form>   
 </div>
