@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { SectionsModule } from './sections/sections.module';
+import { ReportsModule } from './reports/reports.module';
 import { DataMockModule } from './data-mock/data-mock.module';
 
 import { AppComponent } from './app.component';
@@ -13,7 +13,7 @@ import { PipelineSelectionComponent } from './pipeline-selection/pipeline-select
   ],
   imports: [
     BrowserModule,
-    SectionsModule,
+    ReportsModule,
     DataMockModule
   ],
   providers: [],

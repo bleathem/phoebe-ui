@@ -31,4 +31,4 @@ import { TestSuiteBuildsByTimeComponent } from './test-suite-builds-by-time/test
     TestSuiteBuildsByTimeComponent
   ]
 })
-export class SectionsModule { }
+export class ReportsModule { }
