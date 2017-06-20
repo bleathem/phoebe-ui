@@ -1,5 +1,4 @@
 import { Component, Output, OnInit } from '@angular/core';
-import * as c3 from 'c3';
 import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
 
 @Component({

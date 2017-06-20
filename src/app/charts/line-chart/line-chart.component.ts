@@ -6,7 +6,7 @@ import * as c3 from 'c3';
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.less']
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
   @Input() data: (string | number)[][];
   chart: any;
 

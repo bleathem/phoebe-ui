@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     PieChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -16,7 +18,8 @@ import { LineChartComponent } from './line-chart/line-chart.component';
   ],
   exports: [
     PieChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    BarChartComponent
   ],
   providers: []
 })
