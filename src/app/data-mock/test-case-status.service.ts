@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/never';
+import 'rxjs/add/observable/from';
 
 @Injectable()
 export class TestCaseStatusService {
@@ -80,15 +85,11 @@ export class TestCaseStatusService {
   }
 
   private getRandomDataObservable(defs: any[][]): Observable<(string | number)[][]> {
-    let source = new Observable(observer => {
-      let delay = this.getRandomInt(100, 500);
-      setTimeout(() => {
-        observer.next(this.getRandomData(defs));
-        setInterval(() => {
-          observer.next(this.getRandomData(defs));
-        }, this.getRandomInt(1600, 3200));
-      }, delay);
-    });
+    let source = Observable.merge(
+      Observable.from([this.getRandomData(defs)]),
+      Observable.interval(this.getRandomInt(1600, 3200))
+        .map(() => this.getRandomData(defs))
+     ).delay(this.getRandomInt(100, 500));
     let pausable = this.pauser.switchMap(paused => paused ? Observable.never() : source);
     return pausable;
   }
