@@ -1,72 +1,60 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/never';
 
 @Injectable()
 export class TestCaseStatusService {
   public byTestSuiteObservable: Observable<(string | number)[][]>;
   public byPipelineRunObservable: Observable<(string | number)[][]>;
   public byTimeComponentObservable: Observable<(string | number)[][]>;
+  public pauser: ReplaySubject<boolean>;
 
   constructor() {
-    this.byTestSuiteObservable = new Observable(observer => {
-      let delay = this.getRandomInt(100, 500);
-      setTimeout(() => {
-        observer.next([['Failed', this.getRandomInt(5, 30)],
-          ['Skipped', this.getRandomInt(5, 10)],
-          ['Passed', this.getRandomInt(30, 80)],
-          ['Error', this.getRandomInt(5, 30)]
-        ]);
-        setInterval(() => {
-          observer.next([['Failed', this.getRandomInt(5, 30)],
-            ['Skipped', this.getRandomInt(5, 10)],
-            ['Passed', this.getRandomInt(30, 80)],
-            ['Error', this.getRandomInt(5, 30)]
-          ]);
-        }, this.getRandomInt(1600, 3200));
-      }, delay);
-      });
+    this.initPauser();
 
-    this.byPipelineRunObservable = new Observable(observer => {
-      let delay = this.getRandomInt(100, 500);
-      setTimeout(() => {
-        observer.next([
-          this.getRandomArray('data1', 30, 400, 6),
-          this.getRandomArray('data2', 30, 400, 6),
-          this.getRandomArray('data3', 30, 400, 6),
-          this.getRandomArray('data4', 30, 400, 6),
-          this.getRandomArray('data5', 30, 400, 6)
-        ]);
-        setInterval(() => {
-          observer.next([
-            this.getRandomArray('data1', 30, 400, 6),
-            this.getRandomArray('data2', 30, 400, 6),
-            this.getRandomArray('data3', 30, 400, 6),
-            this.getRandomArray('data4', 30, 400, 6),
-            this.getRandomArray('data5', 30, 400, 6)
-          ]);
-        }, this.getRandomInt(1600, 3200));
-      }, delay);
-      });
+    this.byTestSuiteObservable = this.getRandomDataObservable([
+      ['Failed', 5, 30, 1],
+      ['Skipped', 5, 10, 1],
+      ['Passed', 30, 80, 1],
+      ['Error', 5, 30, 1]
+    ]);
 
-    this.byTimeComponentObservable = new Observable(observer => {
-      let delay = this.getRandomInt(100, 500);
-      setTimeout(() => {
-        observer.next([
-          this.getRandomArray('Passed', 150, 400, 3),
-          this.getRandomArray('Failed', 150, 400, 3),
-          this.getRandomArray('Skipped', 150, 400, 3),
-          this.getRandomArray('Error', 150, 400, 3)
-        ]);
-        setInterval(() => {
-          observer.next([
-            this.getRandomArray('Passed', 150, 400, 3),
-            this.getRandomArray('Failed', 150, 400, 3),
-            this.getRandomArray('Skipped', 150, 400, 3),
-            this.getRandomArray('Error', 150, 400, 3)
-          ]);
-        }, this.getRandomInt(1600, 3200));
-      }, delay);
-      });
+    this.byPipelineRunObservable = this.getRandomDataObservable([
+      ['data1', 30, 400, 6],
+      ['data2', 30, 400, 6],
+      ['data3', 30, 400, 6],
+      ['data4', 30, 400, 6],
+      ['data5', 30, 400, 6]
+    ]);
+
+    this.byTimeComponentObservable = this.getRandomDataObservable([
+      ['Passed', 150, 400, 3],
+      ['Failed', 150, 400, 3],
+      ['Skipped', 150, 400, 3],
+      ['Error', 150, 400, 3]
+    ]);
+  }
+
+  private initPauser() {
+    this.pauser = new ReplaySubject(1);
+    this.pauser.next(false);
+
+    let windowFocusObserver = new Observable<boolean>(observer => {
+      window.onblur = function() {
+        observer.next(false)
+        console.log('Window blurred');
+      };
+      window.onfocus = function() {
+        observer.next(true)
+        console.log('Window focused');
+      };
+    });
+
+    windowFocusObserver.subscribe(focused => {
+      this.pauser.next(!focused);
+    });
   }
 
   private getRandomInt(min, max) {
@@ -83,5 +71,25 @@ export class TestCaseStatusService {
       arr[i] = this.getRandomInt(min, max);
     }
     return arr;
+  }
+
+  private getRandomData(defs: any[][]): (string | number)[][] {
+    return defs.map(def => {
+      return this.getRandomArray.apply(this, def);
+    });
+  }
+
+  private getRandomDataObservable(defs: any[][]): Observable<(string | number)[][]> {
+    let source = new Observable(observer => {
+      let delay = this.getRandomInt(100, 500);
+      setTimeout(() => {
+        observer.next(this.getRandomData(defs));
+        setInterval(() => {
+          observer.next(this.getRandomData(defs));
+        }, this.getRandomInt(1600, 3200));
+      }, delay);
+    });
+    let pausable = this.pauser.switchMap(paused => paused ? Observable.never() : source);
+    return pausable;
   }
 }
