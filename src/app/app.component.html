@@ -1,14 +1,14 @@
-<div class="container reports"> 
-    <header class="reports-header">
-      		<img src="/assets/Logo_RH_RGB_Reverse.svg" alt="redhat Logo" />
-      		<h1 class="panel-title reports-title">CI/CD Pipeline</h1>
-    </header>
+<header class="reports-header">
+      <img src="/assets/Logo_RH_RGB_Reverse.svg" alt="redhat Logo" />
+      <h1 class="panel-title reports-title">CI/CD Pipeline</h1>
+</header>
+<div class="container reports">
     <main role="main" class="panel-body">
       <section class="panel-section">
+        <app-pipeline-selection></app-pipeline-selection>
       	<app-intro></app-intro>
       </section>
       <section class="panel-section">
-      	<app-pipeline-selection></app-pipeline-selection>
       	<app-pipeline-run-by-stage></app-pipeline-run-by-stage>
       </section>
       <section class="panel-section">
