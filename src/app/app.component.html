@@ -1,27 +1,27 @@
-<div class="container reports">
-  <div class="panel panel-default">
-    <header>
-    <div class="<!--panel-heading reports-heading--> navbar navbar-default">
-      <div class="navbar-headear">
-      	<img class="navbar-brand" src="/assets/Logo_RH_RGB_Reverse.svg" alt="Redhat Logo" />
-      </div>
-      
-      <h1 class="panel-title reports-title">CI/CD Pipeline</h1>
-    </div>
+<div class="container reports"> 
+    <header class="reports-header">
+      		<img src="/assets/Logo_RH_RGB_Reverse.svg" alt="redhat Logo" />
+      		<h1 class="panel-title reports-title">CI/CD Pipeline</h1>
     </header>
-    <div class="panel-body">
-      <app-intro></app-intro>
-      <hr>
-      <app-pipeline-selection></app-pipeline-selection>
-      <app-pipeline-run-by-stage></app-pipeline-run-by-stage>
-      <hr>
-      <app-test-case-status-by-pipeline-run></app-test-case-status-by-pipeline-run>
-      <hr>
-      <app-test-case-status-by-test-suite></app-test-case-status-by-test-suite>
-      <hr>
-      <app-test-case-status-by-test-suite-based-on-build-package></app-test-case-status-by-test-suite-based-on-build-package>
-      <hr>
-      <app-test-suite-builds-by-time></app-test-suite-builds-by-time>
-    </div>
-  </div>
+    <main role="main" class="panel-body">
+      <section class="panel-section">
+      	<app-intro></app-intro>
+      </section>
+      <section class="panel-section">
+      	<app-pipeline-selection></app-pipeline-selection>
+      	<app-pipeline-run-by-stage></app-pipeline-run-by-stage>
+      </section>
+      <section class="panel-section">
+      	<app-test-case-status-by-pipeline-run></app-test-case-status-by-pipeline-run>
+      </section>
+      <section class="panel-section">
+      	<app-test-case-status-by-test-suite></app-test-case-status-by-test-suite>
+      </section>
+      <section class="panel-section">
+      	<app-test-case-status-by-test-suite-based-on-build-package></app-test-case-status-by-test-suite-based-on-build-package>
+      </section>
+      <section class="panel-section">
+      	<app-test-suite-builds-by-time></app-test-suite-builds-by-time>
+      </section>
+	</main>
 </div>

@@ -1,23 +1,30 @@
 @import "~patternfly/dist/less/variables.less";
 
 .reports {
-width: 100%;
-  max-width: 972px;
+box-shadow: 0px 3px 5px rgba(0,0,0,0.4);
 }
 
-.reports-heading {
+.reports-header {
   background-color: @color-pf-black-900;
   color: white;
-  .logo{
-  	max-width: 200px;
+  padding: 15px;
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: space-between;
+ 	
+  img{
+  	margin-right: 15px;
+  	max-width: 150px;
   }
+  
+}/*.report-header*/
+
+.panel-section{
+	margin-bottom: 5%;
+	padding-bottom: 5%;
+	&:not(:last-of-type){
+		border-bottom: 1px solid @color-pf-black-300;	
+	}
+	
 }
 
-.reports-title {
-  line-height: 40px;
-}
-
-hr{
-	height: 2px;
-	background-color: @color-pf-black-300;
-}

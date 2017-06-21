@@ -1,2 +1,64 @@
-<h2 id="report5">Report #5: Test Suite Builds by Time</h2>
+<h1 id="report5">Report #5: Test Suite Builds by Time</h1>
+<h2>This report is intended to help with finding out which builds are efficient and which of them are not. Choose a test suite to see the performance of builds over time.</h2>
+<form method="post" action="" class="form-inline">
+	<label for="testSuite" class=" control-label">Test Suite:</label>
+	  <select id="testSuite" class="form-control">
+	    <option>&lt;Test Suite Name&gt;</option>
+	  </select>
+</form>
 <charts-bar-chart [data]="chartData"></charts-bar-chart>
+<p>
+  <button class="btn btn-primary btn-md "
+          (click)="hideDetails = !hideDetails"
+          type="button">
+          {{hideDetails ? "View" : "Hide"}} Details
+  </button>
+</p>
+<table [hidden]="hideDetails" class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Test Suite 1</th>
+      <th>Test Suite 2</th>
+      <th>Test Suite 3</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test Suite 1</strong></td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+    </tr>
+    <tr>
+      <td><strong>Test Suite 2</strong></td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+    </tr>
+    <tr>
+      <td><strong>Test Suite 3</strong></td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+    </tr>
+    <tr>
+      <td><strong>&hellip;</strong></td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td># of pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+    </tr>
+    <tr>
+      <td><strong>Summary</strong></td>
+      <td>Total pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+      <td>Total pass/failed/skipped/error</td>
+    </tr>
+  </tbody>
+</table>

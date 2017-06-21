@@ -1,4 +1,5 @@
-<h2  id="report4">Report #4: Test Case Status by Test Suite based on Package Build</h2>
+<h1 id="report4">Report #4: Test Case Status by Test Suite based on Package Build</h1>
+<h2>This report is intended to provide a comprehensive understanding of test suite status by package build.  Choose a package build to view the test suite details.</h2>
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-4">
     <charts-pie-chart id="pie-chart-by-package-1" [data]="chart1Data"></charts-pie-chart>
@@ -19,3 +20,65 @@
     <charts-pie-chart id="pie-chart-by-package-6" [data]="chart6Data"></charts-pie-chart>
   </div>
 </div>
+<p>
+  <button class="btn btn-primary btn-md "
+          (click)="hideDetails = !hideDetails"
+          type="button">
+          {{hideDetails ? "View" : "Hide"}} Details
+  </button>
+</p>
+<table [hidden]="hideDetails" class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Package build 1</th>
+      <th>Package build 2</th>
+      <th>&hellip;</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Trigger Commit</strong></td>
+      <td><a href="http://">Link to trigger commit info</a></td>
+      <td><a href="http://">Link to trigger commit info</a></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Test Suite 1</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Test Suite 2</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Test Suite 3</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>&hellip;</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Summary</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
