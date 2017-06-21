@@ -1,4 +1,4 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit } from '@angular/core';
 import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
 
 @Component({
@@ -7,6 +7,7 @@ import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
   styleUrls: ['./test-case-status-by-test-suite-based-on-build-package.component.less']
 })
 export class TestCaseStatusByTestSuiteBasedOnBuildPackageComponent implements OnInit {
+  @Input() hideDetails: boolean = true;
   @Output() chart1Data: (string | number)[][];
   @Output() chart2Data: (string | number)[][];
   @Output() chart3Data: (string | number)[][];
