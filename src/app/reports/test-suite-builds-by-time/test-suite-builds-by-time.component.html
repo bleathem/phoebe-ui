@@ -1,11 +1,15 @@
-<h1 class="h3" id="report5">Report #5: Test Suite Builds by Time</h1>
-<p>This report is intended to help with finding out which builds are efficient and which of them are not. Choose a test suite to see the performance of builds over time.</p>
-<form method="post" action="" class="form-inline">
+<h1 id="report5">Report #5: Test Suite Builds by Time</h1>
+<p>This report is intended to help with finding out which builds are efficient and which of them are not.</p>
+<form method="post" action="" class="form-inline form-filter">
+<p>Choose a test suite to see the performance of builds over time.</p>
+<div class="form-filter--item">
 	<label for="testSuite" class=" control-label">Test Suite:</label>
 	  <select id="testSuite" class="form-control">
 	    <option>&lt;Test Suite Name&gt;</option>
 	  </select>
+	</div>
 </form>
+
 <charts-bar-chart [data]="chartData"></charts-bar-chart>
 <p>
   <button class="btn btn-primary btn-md "
