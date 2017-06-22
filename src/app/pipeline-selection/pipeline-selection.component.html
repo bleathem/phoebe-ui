@@ -1,14 +1,18 @@
 <h1 class="h3">This website provides access to multiple reports related to the CI/CD Pipeline.</h1>
-<p>Select the Pipeline and Build to set the context for all reports:</p>
 
-    <form method="post" action="" class="form-inline">
-    	<label for="pipeline" class=" control-label">Pipeline Run:</label>
-    	  <select id="pipeline" class="form-control">
-    	    <option>&lt;Pipeline Run&gt;</option>
-    	  </select>
 
-    	  <label for="package" class="control-label">Package Build:</label>
-    	  <select id="package" class="form-control">
-    	    <option>&lt;Package Build&gt;</option>
-    	  </select>
+    <form method="post" action="" class="form-inline form-filter">
+      <p>Select the Pipeline and Build to set the context for all reports:</p>
+      <div class="form-filter--item">
+        <label for="pipeline" class=" control-label">Pipeline Run:</label>
+          <select id="pipeline" class="form-control">
+            <option>&lt;Pipeline Run&gt;</option>
+          </select>
+      </div>
+      <div class="form-filter--item">
+        <label for="package" class="control-label">Package Build:</label>
+        <select id="package" class="form-control">
+          <option>&lt;Package Build&gt;</option>
+        </select>
+      </div>
     </form>
