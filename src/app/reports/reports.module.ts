@@ -8,11 +8,13 @@ import { TestCaseStatusByPipelineRunComponent } from './test-case-status-by-pipe
 import { TestCaseStatusByTestSuiteComponent } from './test-case-status-by-test-suite/test-case-status-by-test-suite.component';
 import { TestCaseStatusByTestSuiteBasedOnBuildPackageComponent } from './test-case-status-by-test-suite-based-on-build-package/test-case-status-by-test-suite-based-on-build-package.component';
 import { TestSuiteBuildsByTimeComponent } from './test-suite-builds-by-time/test-suite-builds-by-time.component';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
 @NgModule({
   imports: [
     CommonModule,
-    ChartsModule
+    ChartsModule,
+    Ng2PageScrollModule.forRoot()
   ],
   declarations: [
     IntroComponent,
