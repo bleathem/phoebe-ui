@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 import { IntroComponent } from './intro.component';
 
 describe('IntroComponent', () => {
@@ -8,7 +9,10 @@ describe('IntroComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IntroComponent ]
+      declarations: [ IntroComponent ],
+      imports: [
+        Ng2PageScrollModule.forRoot()
+      ]
     })
     .compileComponents();
   }));

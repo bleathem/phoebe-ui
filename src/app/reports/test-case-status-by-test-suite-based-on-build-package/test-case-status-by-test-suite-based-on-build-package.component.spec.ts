@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ChartsModule } from '../../charts/charts.module';
+import { DataMockModule } from '../../data-mock/data-mock.module';
 import { TestCaseStatusByTestSuiteBasedOnBuildPackageComponent } from './test-case-status-by-test-suite-based-on-build-package.component';
 
 describe('TestCaseStatusByTestSuiteBasedOnBuildPackageComponent', () => {
@@ -8,7 +10,8 @@ describe('TestCaseStatusByTestSuiteBasedOnBuildPackageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestCaseStatusByTestSuiteBasedOnBuildPackageComponent ]
+      declarations: [ TestCaseStatusByTestSuiteBasedOnBuildPackageComponent ],
+      imports: [ ChartsModule, DataMockModule ]
     })
     .compileComponents();
   }));
