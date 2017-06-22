@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 // Import patternfly.less and patternfly-additions.less
 @import "./patternfly-all";
-
 // Change the path of fonts and images to be relative to your project
 @font-path: "~patternfly/dist/fonts";
 @img-path: "~patternfly/dist/img";
@@ -15,4 +14,12 @@ hr {
 }
 p{
   font-size:18px;
+}
+
+h1 +p{
+  margin-bottom: 2.5%;
+}
+.btn{
+  margin: 3rem 0 1rem;
+
 }
