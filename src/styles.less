@@ -6,34 +6,34 @@
 @img-path: "~patternfly/dist/img";
 @import "~patternfly/dist/less/variables.less";
 
-.form-filter{
-  padding: 3rem;
-  border: 1px solid @color-pf-black-300;
-  display: flex;
-  flex-wrap:wrap;
-  background: @color-pf-black-100;
-  margin: 2.5rem 0;
-  p{
-    width: 100%;
-    margin-bottom: 2.5rem;
-  }
-    &--item{
-      label{
-        width: 100%;
-        margin-bottom: 1rem;
-      }
-      input{
-        width: 100%;
-      }
-    }
-}
-// Put your styles here
-
-hr {
-  height: 12px;
-  border: 0;
-  box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
-}
+// .form-filter{
+//   padding: 3rem;
+//   border: 1px solid @color-pf-black-300;
+//   display: flex;
+//   flex-wrap:wrap;
+//   background: @color-pf-black-100;
+//   margin: 2.5rem 0;
+//   p{
+//     width: 100%;
+//     margin-bottom: 2.5rem;
+//   }
+//     &--item{
+//       label{
+//         width: 100%;
+//         margin-bottom: 1rem;
+//       }
+//       input{
+//         width: 100%;
+//       }
+//     }
+// }
+// // Put your styles here
+//
+// hr {
+//   height: 12px;
+//   border: 0;
+//   box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+// }
 p{
   font-size:18px;
 }
@@ -45,6 +45,7 @@ h1 +p{
   margin: 3rem 0 1rem;
 
 }
+.table{background:@color-pf-black-100; }
 .reports-header {
   background-color: @color-pf-black-900;
   color: white;
@@ -67,4 +68,49 @@ h1 +p{
 	&:not(:last-of-type){
 		border-bottom: 1px solid @color-pf-black-300;
 	}
+}
+.collapsible-panel{
+    padding-top: 15px;
+}
+.toggle-wrap{
+  position: relative;
+    &::after{
+      content: '';
+      height: 1px;
+      background: @color-pf-black-300;
+      width: 100%;
+      position: absolute;
+      display: block;
+      left: 0;
+      bottom: 15px
+    }
+}
+.toggle-details{
+  border:none;
+  background: @color-pf-black-150;
+  color:@color-pf-blue;
+  text-align:left;
+  outline:none;
+  position:relative;
+  z-index: 1;
+  font-size: @font-size-h3;
+    &:before{
+      content: '';
+      position: absolute;
+      border: solid @color-pf-black-900;
+      border-width: 2px 2px 0 0;
+    	height: 7px;
+    	left: -10px;
+    	top: 13px;
+      transition: rotate .25s linear;
+    	transform: rotate(45deg);
+    	vertical-align: top;
+    	width: 7px;
+    }
+    &.active{
+      &:before{
+        transform:rotate(135deg);
+      }
+    }
+
 }
