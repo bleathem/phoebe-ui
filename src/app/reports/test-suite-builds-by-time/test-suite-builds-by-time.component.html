@@ -18,51 +18,53 @@
           {{hideDetails ? "View" : "Hide"}} Details
   </button>
 </p>
-<table [hidden]="hideDetails" class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Test Suite 1</th>
-      <th>Test Suite 2</th>
-      <th>Test Suite 3</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Test Suite 1</strong></td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-    </tr>
-    <tr>
-      <td><strong>Test Suite 2</strong></td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-    </tr>
-    <tr>
-      <td><strong>Test Suite 3</strong></td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-    </tr>
-    <tr>
-      <td><strong>&hellip;</strong></td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td># of pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-    </tr>
-    <tr>
-      <td><strong>Summary</strong></td>
-      <td>Total pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-      <td>Total pass/failed/skipped/error</td>
-    </tr>
-  </tbody>
-</table>
+<app-collapsible-panel [isCollapsed]="!hideDetails">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Test Suite 1</th>
+        <th>Test Suite 2</th>
+        <th>Test Suite 3</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Test Suite 1</strong></td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+      </tr>
+      <tr>
+        <td><strong>Test Suite 2</strong></td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+      </tr>
+      <tr>
+        <td><strong>Test Suite 3</strong></td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+      </tr>
+      <tr>
+        <td><strong>&hellip;</strong></td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td># of pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+      </tr>
+      <tr>
+        <td><strong>Summary</strong></td>
+        <td>Total pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+        <td>Total pass/failed/skipped/error</td>
+      </tr>
+    </tbody>
+  </table>
+</app-collapsible-panel>

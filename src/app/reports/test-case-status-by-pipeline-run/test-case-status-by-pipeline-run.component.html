@@ -9,51 +9,53 @@
           {{hideDetails ? "View" : "Hide"}} Details
   </button>
 </p>
-<table [hidden]="hideDetails" class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Pipeline Run 1</th>
-      <th>Pipeline Run 2</th>
-      <th>&hellip;</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Das Host 1</strong></td>
-      <td>#pass/fail test cases</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><strong>Das Host 2</strong></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><strong>Das Host 3</strong></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><strong>&hellip;</strong></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><strong>Summary</strong></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<app-collapsible-panel [isCollapsed]="!hideDetails">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Pipeline Run 1</th>
+        <th>Pipeline Run 2</th>
+        <th>&hellip;</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Das Host 1</strong></td>
+        <td>#pass/fail test cases</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Das Host 2</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Das Host 3</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>&hellip;</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><strong>Summary</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</app-collapsible-panel>
