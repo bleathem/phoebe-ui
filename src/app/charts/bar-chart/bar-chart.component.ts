@@ -16,17 +16,6 @@ export class BarChartComponent implements OnInit, OnChanges {
   ngOnInit() {
     var c3ChartDefaults = patternfly.c3ChartDefaults();
 
-    var chartUrls = [
-      'https://www.gogole.com',
-      'https://www.yahoo.com',
-      'https://www.bing.com/',
-      'https://duckduckgo.com/'
-    ];
-    var categories = ['Q1', 'Q2', 'Q3', 'Q4'];
-    var columnsData = [
-      ['data1', 400, 360, 320, 175]
-    ];
-
     var groupedcCategories = ['2013', '2014', '2015'];
     var groupedColumnsData = [
       ['Passed', 0, 0, 0],
@@ -44,7 +33,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     };
 
     var groupedVerticalBarChartConfig = patternfly.c3ChartDefaults().getDefaultGroupedBarConfig();
-    groupedVerticalBarChartConfig.bindto = '#bar-chart-6';
+    groupedVerticalBarChartConfig.bindto = this.el.nativeElement.firstChild;
     groupedVerticalBarChartConfig.axis = {
       x: {
         categories: groupedcCategories,

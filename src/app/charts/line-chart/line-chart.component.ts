@@ -18,7 +18,8 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     var c3ChartDefaults = patternfly.c3ChartDefaults();
     var lineChartConfig = c3ChartDefaults.getDefaultLineConfig();
-    lineChartConfig.bindto = this.el.nativeElement;
+    // lineChartConfig.bindto =  this.el.nativeElement.querySelector('.line-chart-pf');
+    lineChartConfig.bindto =  this.el.nativeElement.firstChild;
 
     lineChartConfig.data = {
       columns: lineChartDataColumns,

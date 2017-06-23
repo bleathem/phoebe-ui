@@ -32,7 +32,7 @@ export class PieChartComponent implements OnInit, OnChanges {
 
     // Pie chart
     let pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
-    pieChartConfig.bindto = this.el.nativeElement;
+    pieChartConfig.bindto = this.el.nativeElement.firstChild;
     pieChartConfig.data = pieData;
     pieChartConfig.legend = {
       show: true,
