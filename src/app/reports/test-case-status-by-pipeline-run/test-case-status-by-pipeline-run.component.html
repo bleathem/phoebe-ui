@@ -4,6 +4,7 @@
     <charts-line-chart [data]="chartData"></charts-line-chart>
 <div class="toggle-wrap">
   <button class="toggle-details"
+          [ngClass]="hideDetails ? '' : 'active'"
           (click)="hideDetails = !hideDetails"
           type="button">
 
