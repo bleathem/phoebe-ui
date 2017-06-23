@@ -7,6 +7,8 @@
     "start": "ng serve",
     "vpn": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
+    "ghpages-build": "ng build --prod --deploy-url='/phoebe-ui' --base-href='/phoebe-ui/'",
+    "ghpages-publish": "git -C dist init; git -C dist add .; git -C dist commit -m'dist'; git -C dist remote add bleathem git@github.com:bleathem/phoebe-ui.git; git -C dist push -f bleathem master:gh-pages",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
