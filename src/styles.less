@@ -15,10 +15,7 @@ p{
 h1 +p{
   margin-bottom: 2.5%;
 }
-.btn{
-  margin: 3rem 0 1rem;
 
-}
 .table{background:@color-pf-black-100; }
 
 
@@ -43,7 +40,7 @@ h1 +p{
 	margin-bottom: 3.5%;
 	padding-bottom: 3.5%;
   font-family: 'Open Sans';
-	&:not(:last-of-type){
+	&:first-of-type{
 		border-bottom: 1px solid @color-pf-black-300;
 	}
 } /*.panel-section*/
@@ -56,6 +53,7 @@ h1 +p{
 
 .toggle-wrap{
   position: relative;
+  margin: 15px 0 0 0;
     &::after{
       content: '';
       height: 1px;
