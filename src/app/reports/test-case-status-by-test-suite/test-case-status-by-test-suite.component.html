@@ -20,13 +20,16 @@
     <charts-pie-chart id="pie-chart-6" [data]="chart6Data"></charts-pie-chart>
   </div>
 </div>
-<p>
-  <button class="btn btn-primary btn-md "
+<div class="toggle-wrap">
+  <button class="toggle-details"
+          [ngClass]="hideDetails ? '' : 'active'"
           (click)="hideDetails = !hideDetails"
           type="button">
+
           {{hideDetails ? "View" : "Hide"}} Details
+
   </button>
-</p>
+</div>
 <app-collapsible-panel [isCollapsed]="!hideDetails">
   <table class="table table-striped table-bordered">
     <thead>

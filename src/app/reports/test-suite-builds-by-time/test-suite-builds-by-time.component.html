@@ -1,23 +1,30 @@
 <h1 id="report5">Report #5: Test Suite Builds by Time</h1>
 <p>This report is intended to help with finding out which builds are efficient and which of them are not.</p>
-<form method="post" action="" class="form-inline form-filter">
-<p>Choose a test suite to see the performance of builds over time.</p>
-<div class="form-filter--item">
-	<label for="testSuite" class=" control-label">Test Suite:</label>
-	  <select id="testSuite" class="form-control">
-	    <option>&lt;Test Suite Name&gt;</option>
-	  </select>
+<div class="card-pf">
+	<div class="card-pf-heading">
+	<h2 class="card-pf-title">Choose a test suite to see the performance of builds over time.</h2>
 	</div>
-</form>
+	<div class="card-pf-body row">
+		<div class="col-xs-6 col-sm-4 col-md-2">
+			<label for="pipeline" class=" control-label">Test Suite:</label>
+				<select id="pipeline" class="form-control">
+					<option>&lt;Test Suite Name&gt;</option>
+				</select>
+	</div><!-- /col -->
+</div>
+</div><!-- card-pf -->
 
 <charts-bar-chart [data]="chartData"></charts-bar-chart>
-<p>
-  <button class="btn btn-primary btn-md "
+<div class="toggle-wrap">
+  <button class="toggle-details"
+          [ngClass]="hideDetails ? '' : 'active'"
           (click)="hideDetails = !hideDetails"
           type="button">
+
           {{hideDetails ? "View" : "Hide"}} Details
+
   </button>
-</p>
+</div>
 <app-collapsible-panel [isCollapsed]="!hideDetails">
   <table class="table table-striped table-bordered">
     <thead>
