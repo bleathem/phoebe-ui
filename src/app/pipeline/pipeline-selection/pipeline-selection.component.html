@@ -7,11 +7,11 @@
   <div class="card-pf-body row">
     <div class="col-xs-6 col-sm-4 col-md-2">
       <label for="pipeline" class=" control-label">Pipeline Run:</label>
-        <select id="pipeline" class="form-control">
+        <select id="pipeline" class="form-control" placeholder="test">
+          <option disabled selected hidden>&lt;Pipeline Run&gt;</option>
           <option *ngFor="let pipeline of pipelines">
             {{ pipeline.key }}
           </option>
-          <option>&lt;Pipeline Run&gt;</option>
         </select>
   </div><!-- /col -->
   <div class="col-xs-6 col-sm-4 col-md-2">
