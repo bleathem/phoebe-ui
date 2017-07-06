@@ -1,0 +1,24 @@
+<h1 class="page-header">This website provides access to multiple reports related to the CI/CD Pipeline.</h1>
+
+<div class="card-pf">
+  <div class="card-pf-heading">
+  <h2 class="card-pf-title">Select the Pipeline and Build to set the context for all reports:</h2>
+  </div>
+  <div class="card-pf-body row">
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      <label for="pipeline" class=" control-label">Pipeline Run:</label>
+        <select id="pipeline" class="form-control">
+          <option *ngFor="let pipeline of pipelines">
+            {{ pipeline.key }}
+          </option>
+          <option>&lt;Pipeline Run&gt;</option>
+        </select>
+  </div><!-- /col -->
+  <div class="col-xs-6 col-sm-4 col-md-2">
+    <label for="package" class="control-label">Package Build:</label>
+    <select id="package" class="form-control">
+      <option>&lt;Package Build&gt;</option>
+    </select>
+  </div>
+  </div><!-- /col -->
+</div>

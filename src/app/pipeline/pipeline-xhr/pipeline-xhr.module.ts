@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { ElasticService } from './elastic.service'
+import { PipelineXhrService } from './pipeline-xhr.service'
 
 @NgModule({
   imports: [
@@ -10,6 +10,6 @@ import { ElasticService } from './elastic.service'
     HttpModule,
     JsonpModule
   ],
-  providers: [ ElasticService ]
+  providers: [ PipelineXhrService ]
 })
-export class DataModule { }
+export class PipelineXhrModule { }

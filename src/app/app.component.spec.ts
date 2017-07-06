@@ -2,19 +2,25 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { ReportsModule } from './reports/reports.module';
 import { DataMockModule } from './data-mock/data-mock.module';
+import { PipelineModule } from './pipeline/pipeline.module';
+import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
+import { StoreModule } from '@ngrx/store';
+
 import { AppComponent } from './app.component';
-import { PipelineSelectionComponent } from './pipeline-selection/pipeline-selection.component';
+import { PipelineSelectionComponent } from './pipeline/pipeline-selection/pipeline-selection.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        PipelineSelectionComponent
+        AppComponent
       ],
       imports: [
         ReportsModule,
-        DataMockModule
+        PipelineModule,
+        PipelineXhrModule,
+        DataMockModule,
+        StoreModule.provideStore({})
       ]
     }).compileComponents();
   }));
