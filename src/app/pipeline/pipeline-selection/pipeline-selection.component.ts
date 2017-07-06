@@ -23,7 +23,7 @@ export class PipelineSelectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.elasticService.loadPackages();
+    this.elasticService.loadPipelines();
   }
 
 }

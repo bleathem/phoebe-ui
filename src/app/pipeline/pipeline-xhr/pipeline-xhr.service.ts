@@ -33,15 +33,15 @@ export class PipelineXhrService {
 
   constructor (private http: Http, private store: Store<AppStore>) {}
 
-  loadPackages(): void {
-    this.getPackages()
+  loadPipelines(): void {
+    this.getPipelines()
     .subscribe(pipelines => {
       let action = { type: LOAD_PIPELINES, payload: pipelines };
       this.store.dispatch(action);
     })
   }
 
-  private getPackages(): Observable<string[]> {
+  private getPipelines(): Observable<string[]> {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     return this.http.post(url, JSON.stringify(this.query))
     .map(this.extractData)

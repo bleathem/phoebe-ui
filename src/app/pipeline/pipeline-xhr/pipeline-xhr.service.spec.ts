@@ -47,7 +47,7 @@ describe('ElasticService', () => {
 
   it('should return data', async() => {
     // Initiate the request
-    service['getPackages']().subscribe(pipelines => {
+    service['getPipelines']().subscribe(pipelines => {
       expect(pipelines.length).toEqual(mockResponse.aggregations.job_list.buckets.length);
     }, error => {
       console.error(error);
@@ -57,7 +57,7 @@ describe('ElasticService', () => {
   it('should update the store', inject( [ Store ], ( store: Store<AppStore> ) => {
     // Initiate the request
     let count = 0;
-    service.loadPackages();
+    service.loadPipelines();
     store.select(store => store.pipelines)
     .subscribe(state => {
       console.log('state', state);
