@@ -1,9 +1,15 @@
 export class Pipeline {
-  public key: string;
-  public id: number;
+  public packageBuilds: PackageBuild[];
 
-  constructor(key: string, doc_count: number) {
-    this.id = doc_count;
+  constructor(public key: string, public id: number) {
+    this.id = id;
+    this.key = key;
+  }
+}
+
+export class PackageBuild {
+  constructor(public key: string, public id: number) {
+    this.id = id;
     this.key = key;
   }
 }

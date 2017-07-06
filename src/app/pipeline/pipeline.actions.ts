@@ -1,21 +1,37 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { Pipeline } from './pipeline.model';
+import { Pipeline, PackageBuild } from './pipeline.model';
 
 export const LOAD_PIPELINES = 'LOAD_PIPELINES';
+export const LOAD_PACKAGE_BUILDS = 'LOAD_PACKAGE_BUILDS';
 export const SELECT_PIPELINE = 'SELECT_PIPELINE';
+export const SELECT_PACKAGE_BUILD = 'SELECT_PACKAGE_BUILD';
 
-export class LoadAction implements Action {
+export class LoadPipelinesAction implements Action {
   readonly type = LOAD_PIPELINES;
 
   constructor(public payload: Pipeline[]) { }
 }
 
-export class SelectAction implements Action {
+export class LoadPackageBuildsAction implements Action {
+  readonly type = LOAD_PACKAGE_BUILDS;
+
+  constructor(public payload: Pipeline) { }
+}
+
+export class SelectPipelineAction implements Action {
   readonly type = SELECT_PIPELINE;
 
   constructor(public payload: Pipeline) { }
 }
 
+export class SelectPackageBuildAction implements Action {
+  readonly type = SELECT_PACKAGE_BUILD;
+
+  constructor(public payload: PackageBuild) { }
+}
+
 export type Actions
-  = LoadAction
-  | SelectAction;
+  = LoadPipelinesAction
+  | LoadPackageBuildsAction
+  | SelectPipelineAction
+  | SelectPackageBuildAction;

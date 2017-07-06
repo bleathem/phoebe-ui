@@ -7,7 +7,7 @@
   <div class="card-pf-body row">
     <div class="col-xs-6 col-sm-4 col-md-2">
       <label for="pipeline" class=" control-label">Pipeline Run:</label>
-        <select id="pipeline" class="form-control" placeholder="test">
+        <select class="form-control" #pipeline (change)="selectPipeline(pipeline.value)">
           <option disabled selected hidden>&lt;Pipeline Run&gt;</option>
           <option *ngFor="let pipeline of pipelines">
             {{ pipeline.key }}
@@ -17,7 +17,10 @@
   <div class="col-xs-6 col-sm-4 col-md-2">
     <label for="package" class="control-label">Package Build:</label>
     <select id="package" class="form-control">
-      <option>&lt;Package Build&gt;</option>
+      <option disabled selected hidden>&lt;Package Build&gt;</option>
+      <option *ngFor="let packageBuild of packageBuilds">
+        {{ packageBuild.key }}
+      </option>
     </select>
   </div>
   </div><!-- /col -->
