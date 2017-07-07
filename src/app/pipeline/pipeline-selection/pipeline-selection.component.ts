@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Pipeline, PackageBuild } from '../pipeline.model';
 import { AppStore } from '../../app.store';
+import { Pipeline, PackageBuild } from '../pipeline.model';
 import { SelectPipelineAction, SelectPackageBuildAction } from '../pipeline.actions';
 import { PipelineXhrService } from '../pipeline-xhr/pipeline-xhr.service'
 

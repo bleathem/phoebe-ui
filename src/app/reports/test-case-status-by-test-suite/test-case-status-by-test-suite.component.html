@@ -1,25 +1,6 @@
 <h1 id="report3">Report #3: Test Case Status by Test Suite</h1>
 <p>This report is intended to provide a comprehensive understanding of test suite status by pipeline run. There may be more test suites than can be viewed easily through the chosen visualization.  Select the number of test cases to view here and select the View Details button to see the data table for all test suites.</p>
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-1" [data]="chart1Data"></charts-pie-chart>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-2" [data]="chart2Data"></charts-pie-chart>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-3" [data]="chart3Data"></charts-pie-chart>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-4" [data]="chart4Data"></charts-pie-chart>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-5" [data]="chart5Data"></charts-pie-chart>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <charts-pie-chart id="pie-chart-6" [data]="chart6Data"></charts-pie-chart>
-  </div>
-</div>
+<charts-pie-chart id="pie-chart-1" [data]="testCases"></charts-pie-chart>
 <div class="toggle-wrap">
   <button class="toggle-details"
           [ngClass]="hideDetails ? '' : 'active'"

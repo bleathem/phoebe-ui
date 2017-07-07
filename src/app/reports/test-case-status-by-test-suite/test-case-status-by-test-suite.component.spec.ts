@@ -5,6 +5,9 @@ import { DataMockModule } from '../../data-mock/data-mock.module';
 import { TestCaseStatusByTestSuiteComponent } from './test-case-status-by-test-suite.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapsiblePanelComponent } from '../collapsible-panel/collapsible-panel.component';
+import { StoreModule } from '@ngrx/store';
+
+import { pipelines } from '../../pipeline/pipeline.reducer'
 
 describe('TestCaseStatusByTestSuiteComponent', () => {
   let component: TestCaseStatusByTestSuiteComponent;
@@ -13,7 +16,9 @@ describe('TestCaseStatusByTestSuiteComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TestCaseStatusByTestSuiteComponent, CollapsiblePanelComponent ],
-      imports: [ BrowserAnimationsModule, ChartsModule, DataMockModule ]
+      imports: [ BrowserAnimationsModule, ChartsModule, DataMockModule, StoreModule.provideStore({
+        pipelines
+      }), ]
     })
     .compileComponents();
   }));
