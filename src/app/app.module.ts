@@ -8,7 +8,7 @@ import { PipelineModule } from './pipeline/pipeline.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
 import { ReportsModule } from './reports/reports.module';
 
-import { pipelines } from './pipeline/pipeline.reducer'
+import { pipelines as pipelineState } from './pipeline/pipeline.reducer'
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
     PipelineXhrModule,
     DataMockModule,
     StoreModule.provideStore({
-      pipelines
+      pipelineState
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],

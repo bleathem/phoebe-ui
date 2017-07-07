@@ -2,7 +2,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 
-import { pipelines } from '../pipeline.reducer'
+import { pipelines as pipelineState } from '../pipeline.reducer'
 import { Pipeline, PackageBuild } from '../pipeline.model'
 import { LoadPipelinesAction, LoadPackageBuildsAction } from '../pipeline.actions'
 
@@ -19,7 +19,7 @@ import { mockPipelinesResponse, mockPackageBuildResponse, mockTestData } from '.
 describe('PipelineXhrService', () => {
   beforeEach(async() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule, BrowserModule, StoreModule.provideStore({pipelines}) ],
+      imports: [ HttpModule, BrowserModule, StoreModule.provideStore({pipelineState}) ],
       providers: [ PipelineXhrService, MockBackend, XHRBackend, BaseRequestOptions,
         {
           provide: Http,

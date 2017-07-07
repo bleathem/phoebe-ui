@@ -14,20 +14,20 @@ export class PipelineSelectionComponent implements OnInit {
   @Output() pipelines: Pipeline[];
   @Output() packageBuilds: PackageBuild[];
 
-  constructor(private store: Store<AppStore>, private elasticService: PipelineXhrService) {
-    this.store.select(store => store.pipelineState && store.pipelineState.pipelines)
+  constructor(private store: Store<AppStore>, private piplineXhrService: PipelineXhrService) {
+    this.store.select(store => store.pipelineState.pipelines)
     .subscribe(state => {
       this.pipelines = state;
     });
 
-    this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline && store.pipelineState.selectedPipeline.packageBuilds)
+    this.store.select(store => store.pipelineState.selectedPipeline && store.pipelineState.selectedPipeline.packageBuilds)
     .subscribe(state => {
       this.packageBuilds = state;
     });
   }
 
   ngOnInit() {
-    this.elasticService.loadPipelines();
+    this.piplineXhrService.loadPipelines();
   }
 
   selectPipeline(pipelineKey) {

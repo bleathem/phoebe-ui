@@ -5,6 +5,7 @@ import { DataMockModule } from './data-mock/data-mock.module';
 import { PipelineModule } from './pipeline/pipeline.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
 import { StoreModule } from '@ngrx/store';
+import { pipelines as pipelineState } from './pipeline/pipeline.reducer'
 
 import { AppComponent } from './app.component';
 import { PipelineSelectionComponent } from './pipeline/pipeline-selection/pipeline-selection.component';
@@ -20,7 +21,7 @@ describe('AppComponent', () => {
         PipelineModule,
         PipelineXhrModule,
         DataMockModule,
-        StoreModule.provideStore({})
+        StoreModule.provideStore({pipelineState})
       ]
     }).compileComponents();
   }));
