@@ -127,3 +127,34 @@ export const mockPackageBuildResponse = {
     }
   }
 }
+
+export const mockTestData = {
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0
+  },
+  "hits": {
+    "total": 14689,
+    "max_score": 0,
+    "hits": []
+  },
+  "aggregations": {
+    "testcase_state": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "Successful",
+          "doc_count": 13
+        },
+        {
+          "key": "passed",
+          "doc_count": 1
+        }
+      ]
+    }
+  }
+}

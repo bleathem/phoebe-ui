@@ -16,7 +16,7 @@
   </div><!-- /col -->
   <div class="col-xs-6 col-sm-4 col-md-2">
     <label for="package" class="control-label">Package Build:</label>
-    <select id="package" class="form-control">
+    <select class="form-control" #package (change)="selectPackageBuild(package.value)">
       <option disabled selected hidden>&lt;Package Build&gt;</option>
       <option *ngFor="let packageBuild of packageBuilds">
         {{ packageBuild.key }}

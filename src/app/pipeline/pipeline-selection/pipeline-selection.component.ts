@@ -20,7 +20,7 @@ export class PipelineSelectionComponent implements OnInit {
       this.pipelines = state;
     });
 
-    this.store.select(store => store.pipelines && store.pipelines.selectedPipepline && store.pipelines.selectedPipepline.packageBuilds)
+    this.store.select(store => store.pipelines && store.pipelines.selectedPipeline && store.pipelines.selectedPipeline.packageBuilds)
     .subscribe(state => {
       this.packageBuilds = state;
     });
@@ -39,7 +39,7 @@ export class PipelineSelectionComponent implements OnInit {
 
   selectPackageBuild(packageBuildKey) {
     let packageBuild = this.packageBuilds.filter(_packageBuild => {
-      return _packageBuild.key === packageBuildKey;
+      return _packageBuild.key == packageBuildKey;
     })[0];
     this.store.dispatch(new SelectPackageBuildAction(packageBuild));
   }

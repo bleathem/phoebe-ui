@@ -1,16 +1,18 @@
-import { Pipeline, PackageBuild } from './pipeline.model';
-import { Actions, LOAD_PIPELINES, SELECT_PIPELINE, LOAD_PACKAGE_BUILDS, SELECT_PACKAGE_BUILD } from './pipeline.actions';
+import { Pipeline, PackageBuild, TestCase } from './pipeline.model';
+import { Actions, LOAD_PIPELINES, SELECT_PIPELINE, LOAD_PACKAGE_BUILDS, SELECT_PACKAGE_BUILD, LOAD_TEST_CASES } from './pipeline.actions';
 
 export interface PipelineState {
   pipelines: Pipeline[];
-  selectedPipepline: Pipeline | null;
+  selectedPipeline: Pipeline | null;
   selectedPackageBuild: PackageBuild | null;
+  testCases: TestCase[] | null;
 };
 
 export const initialState: PipelineState = {
   pipelines: [],
-  selectedPipepline: null,
-  selectedPackageBuild: null
+  selectedPipeline: null,
+  selectedPackageBuild: null,
+  testCases: null
 };
 
 export function pipelines(state = initialState, action: Actions): PipelineState {
@@ -18,8 +20,9 @@ export function pipelines(state = initialState, action: Actions): PipelineState 
 		case LOAD_PIPELINES:
 			return {
         pipelines: action.payload,
-        selectedPipepline: null,
-        selectedPackageBuild: null
+        selectedPipeline: null,
+        selectedPackageBuild: null,
+        testCases: null
       };
     case LOAD_PACKAGE_BUILDS:
       state.pipelines.forEach(_pipeline => {
@@ -29,20 +32,30 @@ export function pipelines(state = initialState, action: Actions): PipelineState 
       })
 			return {
         pipelines: state.pipelines,
-        selectedPipepline: state.selectedPipepline,
-        selectedPackageBuild: null
+        selectedPipeline: state.selectedPipeline,
+        selectedPackageBuild: null,
+        testCases: null
       };
     case SELECT_PIPELINE:
       return {
         pipelines: state.pipelines,
-        selectedPipepline: action.payload,
-        selectedPackageBuild: null
+        selectedPipeline: action.payload,
+        selectedPackageBuild: null,
+        testCases: null
       }
     case SELECT_PACKAGE_BUILD:
       return {
         pipelines: state.pipelines,
-        selectedPipepline: state.selectedPipepline,
-        selectedPackageBuild: action.payload
+        selectedPipeline: state.selectedPipeline,
+        selectedPackageBuild: action.payload,
+        testCases: null
+      }
+    case LOAD_TEST_CASES:
+      return {
+        pipelines: state.pipelines,
+        selectedPipeline: state.selectedPipeline,
+        selectedPackageBuild: state.selectedPackageBuild,
+        testCases: action.payload
       }
 		default:
 			return state;
