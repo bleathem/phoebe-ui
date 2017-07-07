@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { AppStore } from '../../app.store';
@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class PipelineXhrService implements OnInit {
+export class PipelineXhrService {
   private elasticUrl = 'http://elasticsearch.perf.lab.eng.bos.redhat.com/';
   private path = '<jenkins-staging2-logs-{now/d-2d}>,<jenkins-staging2-logs-{now/d-1d}>,<jenkins-staging2-logs-{now/d}>,';
   private pipelineQuery = {
@@ -77,20 +77,16 @@ export class PipelineXhrService implements OnInit {
   }
 
   constructor (private http: Http, private store: Store<AppStore>) {
-    this.store.select(store => store.pipelines && store.pipelines.selectedPipeline)
+    this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline)
     .subscribe(pipeline => {
       pipeline && this.loadPackageBuilds(pipeline);
     });
 
-    this.store.select(store => store.pipelines && store.pipelines.selectedPackageBuild)
-    .withLatestFrom(this.store.select(store => store.pipelines && store.pipelines.selectedPipeline))
+    this.store.select(store => store.pipelineState && store.pipelineState.selectedPackageBuild)
+    .withLatestFrom(this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline))
     .subscribe(([packageBuild, pipeline]) => {
       pipeline && packageBuild && this.loadTestCases(pipeline, packageBuild);
     });
-  }
-
-  ngOnInit () {
-
   }
 
   loadPipelines(): void {

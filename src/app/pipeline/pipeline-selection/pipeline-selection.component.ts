@@ -15,12 +15,12 @@ export class PipelineSelectionComponent implements OnInit {
   @Output() packageBuilds: PackageBuild[];
 
   constructor(private store: Store<AppStore>, private elasticService: PipelineXhrService) {
-    this.store.select(store => store.pipelines && store.pipelines.pipelines)
+    this.store.select(store => store.pipelineState && store.pipelineState.pipelines)
     .subscribe(state => {
       this.pipelines = state;
     });
 
-    this.store.select(store => store.pipelines && store.pipelines.selectedPipeline && store.pipelines.selectedPipeline.packageBuilds)
+    this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline && store.pipelineState.selectedPipeline.packageBuilds)
     .subscribe(state => {
       this.packageBuilds = state;
     });

@@ -16,7 +16,7 @@ import { AppStore } from '../../app.store';
 
 import { mockPipelinesResponse, mockPackageBuildResponse, mockTestData } from './mock.data';
 
-describe('ElasticService', () => {
+describe('PipelineXhrService', () => {
   beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule, BrowserModule, StoreModule.provideStore({pipelines}) ],
@@ -60,7 +60,7 @@ describe('ElasticService', () => {
     it('should update the store', inject( [ Store ], ( store: Store<AppStore> ) => {
       // Initiate the request
       service.loadPipelines();
-      store.select(store => store.pipelines.pipelines)
+      store.select(store => store.pipelineState.pipelines)
       .subscribe(state => {
         expect(state.length).toEqual(mockPipelinesResponse.aggregations.job_list.buckets.length);
       }, error => {
@@ -100,7 +100,7 @@ describe('ElasticService', () => {
       // Load the mock pipline data into the store
       store.dispatch(new LoadPipelinesAction(mockPipelinesResponse.aggregations.job_list.buckets.map(obj => {return new Pipeline(obj.key, obj.doc_count)})));
       service.loadPackageBuilds(pipeline);
-      store.select(store => store.pipelines && store.pipelines.pipelines)
+      store.select(store => store.pipelineState.pipelines)
       .subscribe(state => {
         let updatedPipeline = state.filter(_pipeline => {
           return _pipeline.key = pipeline.key;
@@ -146,7 +146,7 @@ describe('ElasticService', () => {
       pipeline.packageBuilds = mockPackageBuildResponse.aggregations.buildID_list.buckets.map(obj => {return new PackageBuild(obj.key, obj.doc_count)});
       store.dispatch(new LoadPackageBuildsAction(pipeline));
       service.loadTestCases(pipeline, packageBuild);
-      store.select(store => store.pipelines && store.pipelines.testCases)
+      store.select(store => store.pipelineState.testCases)
       .subscribe(state => {
         expect(state.length).toEqual(mockTestData.aggregations.testcase_state.buckets.length);
       }, error => {
