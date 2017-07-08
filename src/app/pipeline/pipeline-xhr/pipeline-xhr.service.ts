@@ -78,52 +78,16 @@ export class PipelineXhrService {
    }
   }
 
-  constructor (private http: Http, private store: Store<AppStore>) {
-    this.store.select(store => store.pipelineReducer.selectedPipeline)
-    .subscribe(pipeline => {
-      pipeline && this.loadPackageBuilds(pipeline);
-    });
+  constructor (private http: Http, private store: Store<AppStore>) { }
 
-    this.store.select(store => store.pipelineReducer.selectedPackageBuild)
-    .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
-    .subscribe(([packageBuild, pipeline]) => {
-      pipeline && packageBuild && this.loadTestCases(pipeline, packageBuild);
-    });
-  }
-
-  loadPipelines(): void {
-    this.getPipelines()
-    .subscribe(pipelines => {
-      let action = new LoadPipelinesAction(pipelines);
-      this.store.dispatch(action);
-    })
-  }
-
-  loadPackageBuilds(pipeline: Pipeline): void {
-    this.getPackageBuilds(pipeline)
-    .subscribe(packageBuilds => {
-      pipeline.packageBuilds = packageBuilds;
-      let action = new LoadPackageBuildsAction(pipeline);
-      this.store.dispatch(action);
-    })
-  }
-
-  loadTestCases(pipeline: Pipeline, packageBuild: PackageBuild): void {
-    this.getTestCases(pipeline, packageBuild)
-    .subscribe(testCases => {
-      let action = new LoadTestCasesAction(testCases);
-      this.store.dispatch(action);
-    })
-  }
-
-  private getPipelines(): Observable<Pipeline[]> {
+  getPipelines(): Observable<Pipeline[]> {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     return this.http.post(url, JSON.stringify(this.pipelineQuery))
     .map(this.extractPipeline)
     .catch(this.showError(`Error retrieving Pipeline Runs from ${this.elasticUrl}`));
   }
 
-  private getPackageBuilds(pipeline: Pipeline): Observable<PackageBuild[]> {
+  getPackageBuilds(pipeline: Pipeline): Observable<PackageBuild[]> {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     let query = JSON.parse(JSON.stringify(this.packageQuery));
     query.query.match['ci_job.name'] = pipeline.key;
@@ -132,7 +96,7 @@ export class PipelineXhrService {
     .catch(this.showError(`Error retrieving Package Builds from ${this.elasticUrl}`));
   }
 
-  private getTestCases(pipeline: Pipeline, packageBuild: PackageBuild) {
+  getTestCases(pipeline: Pipeline, packageBuild: PackageBuild) {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     let query = JSON.parse(JSON.stringify(this.testCaseQuery));
     query.query.bool.must[0].match['ci_job.name'] = pipeline.key;

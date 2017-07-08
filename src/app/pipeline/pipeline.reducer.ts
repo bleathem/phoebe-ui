@@ -26,6 +26,7 @@ export function pipelineReducer(state = initialState, action: Actions): Pipeline
         testCases: null
       };
     case LOAD_PACKAGE_BUILDS:
+    console.log('here')
       state.pipelines.forEach(_pipeline => {
         if (_pipeline.key = action.payload.key) {
           _pipeline.packageBuilds = action.payload.packageBuilds;

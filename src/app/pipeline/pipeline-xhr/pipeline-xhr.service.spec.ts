@@ -57,18 +57,6 @@ describe('PipelineXhrService', () => {
       });
     });
 
-    it('should update the store', inject( [ Store ], ( store: Store<AppStore> ) => {
-      // Initiate the request
-      service.loadPipelines();
-      store.select(store => store.pipelineReducer.pipelines)
-      .subscribe(state => {
-        expect(state.length).toEqual(mockPipelinesResponse.aggregations.job_list.buckets.length);
-      }, error => {
-        console.error(error);
-      });
-
-
-    }));
   });
 
   describe('PackageBuilds', () => {
@@ -96,22 +84,6 @@ describe('PipelineXhrService', () => {
       });
     });
 
-    it('should update the store', inject( [ Store ], ( store: Store<AppStore> ) => {
-      // Load the mock pipline data into the store
-      store.dispatch(new LoadPipelinesAction(mockPipelinesResponse.aggregations.job_list.buckets.map(obj => {return new Pipeline(obj.key, obj.doc_count)})));
-      service.loadPackageBuilds(pipeline);
-      store.select(store => store.pipelineReducer.pipelines)
-      .subscribe(state => {
-        let updatedPipeline = state.filter(_pipeline => {
-          return _pipeline.key = pipeline.key;
-        })[0];
-        expect(updatedPipeline.packageBuilds.length).toEqual(mockPackageBuildResponse.aggregations.buildID_list.buckets.length);
-      }, error => {
-        console.error(error);
-      });
-
-
-    }));
   });
 
   describe('TestCases', () => {
@@ -140,20 +112,5 @@ describe('PipelineXhrService', () => {
       });
     });
 
-    it('should update the store', inject( [ Store ], ( store: Store<AppStore> ) => {
-      // Load the mock pipline data into the store
-      store.dispatch(new LoadPipelinesAction(mockPipelinesResponse.aggregations.job_list.buckets.map(obj => {return new Pipeline(obj.key, obj.doc_count)})));
-      pipeline.packageBuilds = mockPackageBuildResponse.aggregations.buildID_list.buckets.map(obj => {return new PackageBuild(obj.key, obj.doc_count)});
-      store.dispatch(new LoadPackageBuildsAction(pipeline));
-      service.loadTestCases(pipeline, packageBuild);
-      store.select(store => store.pipelineReducer.testCases)
-      .subscribe(state => {
-        expect(state.length).toEqual(mockTestData.aggregations.testcase_state.buckets.length);
-      }, error => {
-        console.error(error);
-      });
-
-
-    }));
   });
 });

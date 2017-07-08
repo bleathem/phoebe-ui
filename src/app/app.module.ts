@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { NotificationsModule } from './notifications/notifications.module';
 import { DataMockModule } from './data-mock/data-mock.module';
@@ -14,6 +15,8 @@ import { NotificationComponent } from './notifications/notification/notification
 
 import { pipelineReducer } from './pipeline/pipeline.reducer'
 import { notificationReducer } from './notifications/notification.reducer'
+import { PipelineEffects } from "./pipeline/pipeline-effects";
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -31,6 +34,7 @@ import { AppComponent } from './app.component';
       pipelineReducer,
       notificationReducer
     }),
+    EffectsModule.run(PipelineEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
