@@ -3,12 +3,17 @@ import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
+import { NotificationsModule } from './notifications/notifications.module';
 import { DataMockModule } from './data-mock/data-mock.module';
 import { PipelineModule } from './pipeline/pipeline.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
 import { ReportsModule } from './reports/reports.module';
 
+import { NotificationService } from './notifications/notification.service';
+import { NotificationComponent } from './notifications/notification/notification.component';
+
 import { pipelines as pipelineState } from './pipeline/pipeline.reducer'
+import { notifications as notificationState } from './notifications/notification.reducer'
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -21,12 +26,15 @@ import { AppComponent } from './app.component';
     PipelineModule,
     PipelineXhrModule,
     DataMockModule,
+    NotificationsModule,
     StoreModule.provideStore({
-      pipelineState
+      pipelineState,
+      notificationState
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NotificationComponent]
 })
 export class AppModule { }

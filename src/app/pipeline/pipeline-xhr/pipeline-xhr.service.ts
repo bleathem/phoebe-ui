@@ -5,6 +5,8 @@ import { AppStore } from '../../app.store';
 import { Pipeline, PackageBuild, TestCase } from '../pipeline.model';
 
 import { LoadPipelinesAction, LoadPackageBuildsAction, LoadTestCasesAction } from '../pipeline.actions'
+import { AddNotificationAction } from '../../notifications/notification.actions'
+import { Notification } from '../../notifications/notification.model'
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -118,7 +120,7 @@ export class PipelineXhrService {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     return this.http.post(url, JSON.stringify(this.pipelineQuery))
     .map(this.extractPipeline)
-    .catch(this.handleError);
+    .catch(this.showError(`Error retrieving Pipeline Runs from ${this.elasticUrl}`));
   }
 
   private getPackageBuilds(pipeline: Pipeline): Observable<PackageBuild[]> {
@@ -127,7 +129,7 @@ export class PipelineXhrService {
     query.query.match['ci_job.name'] = pipeline.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractPackageBuild)
-    .catch(this.handleError);
+    .catch(this.showError(`Error retrieving Package Builds from ${this.elasticUrl}`));
   }
 
   private getTestCases(pipeline: Pipeline, packageBuild: PackageBuild) {
@@ -137,7 +139,7 @@ export class PipelineXhrService {
     query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractTestCase)
-    .catch(this.handleError);
+    .catch(this.showError(`Error retrieving Test Cases from ${this.elasticUrl}`));
   }
 
   private extractPipeline(res: Response) {
@@ -180,4 +182,16 @@ export class PipelineXhrService {
     return Observable.throw(errMsg);
   }
 
+  private showError(message: string) {
+    // we need to return a function for the error handler
+    return (error: Response | any, caught: Observable<any>) => {
+      // handle the error normally
+      return this.handleError(error)
+      .catch(errMsg => {
+        // Add a notification before returning
+        this.store.dispatch(new AddNotificationAction(new Notification(message, 'danger')));
+        return Observable.throw(errMsg);
+      });
+    }
+  }
 }
