@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapsiblePanelComponent } from '../collapsible-panel/collapsible-panel.component';
 import { StoreModule } from '@ngrx/store';
 
-import { pipelines } from '../../pipeline/pipeline.reducer'
+import { pipelineReducer } from '../../pipeline/pipeline.reducer'
 
 describe('TestCaseStatusByTestSuiteComponent', () => {
   let component: TestCaseStatusByTestSuiteComponent;
@@ -17,7 +17,7 @@ describe('TestCaseStatusByTestSuiteComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TestCaseStatusByTestSuiteComponent, CollapsiblePanelComponent ],
       imports: [ BrowserAnimationsModule, ChartsModule, DataMockModule, StoreModule.provideStore({
-        pipelines
+        pipelineReducer
       }), ]
     })
     .compileComponents();

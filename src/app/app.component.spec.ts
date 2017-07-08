@@ -7,8 +7,8 @@ import { PipelineModule } from './pipeline/pipeline.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
 import { StoreModule } from '@ngrx/store';
-import { pipelines as pipelineState } from './pipeline/pipeline.reducer';
-import { notifications as notificationState } from './notifications/notification.reducer';
+import { pipelineReducer } from './pipeline/pipeline.reducer';
+import { notificationReducer } from './notifications/notification.reducer';
 
 import { AppComponent } from './app.component';
 import { PipelineSelectionComponent } from './pipeline/pipeline-selection/pipeline-selection.component';
@@ -32,8 +32,8 @@ describe('AppComponent', () => {
         DataMockModule,
         NotificationsModule,
         StoreModule.provideStore({
-          pipelineState,
-          notificationState
+          pipelineReducer,
+          notificationReducer
         })
       ],
 

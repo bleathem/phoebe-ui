@@ -19,7 +19,7 @@ export class TestCaseStatusByTestSuiteComponent implements OnInit {
   @Output() testCases: (string | number)[][];
 
   constructor(private store: Store<AppStore>, private testCaseStatusService: TestCaseStatusService) {
-    this.store.select(store => store.pipelineState && store.pipelineState.testCases)
+    this.store.select(store => store.pipelineReducer.testCases)
     .filter(state => !!state)
     .subscribe(state => {
       console.log(state);

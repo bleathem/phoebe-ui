@@ -79,13 +79,13 @@ export class PipelineXhrService {
   }
 
   constructor (private http: Http, private store: Store<AppStore>) {
-    this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline)
+    this.store.select(store => store.pipelineReducer.selectedPipeline)
     .subscribe(pipeline => {
       pipeline && this.loadPackageBuilds(pipeline);
     });
 
-    this.store.select(store => store.pipelineState && store.pipelineState.selectedPackageBuild)
-    .withLatestFrom(this.store.select(store => store.pipelineState && store.pipelineState.selectedPipeline))
+    this.store.select(store => store.pipelineReducer.selectedPackageBuild)
+    .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
     .subscribe(([packageBuild, pipeline]) => {
       pipeline && packageBuild && this.loadTestCases(pipeline, packageBuild);
     });

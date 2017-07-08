@@ -1,5 +1,6 @@
 import { Pipeline, PackageBuild, TestCase } from './pipeline.model';
 import { Actions, LOAD_PIPELINES, SELECT_PIPELINE, LOAD_PACKAGE_BUILDS, SELECT_PACKAGE_BUILD, LOAD_TEST_CASES } from './pipeline.actions';
+import {ActionReducer, Action} from "@ngrx/store";
 
 export interface PipelineState {
   pipelines: Pipeline[];
@@ -15,7 +16,7 @@ export const initialState: PipelineState = {
   testCases: null
 };
 
-export function pipelines(state = initialState, action: Actions): PipelineState {
+export function pipelineReducer(state = initialState, action: Actions): PipelineState {
 	switch (action.type) {
 		case LOAD_PIPELINES:
 			return {

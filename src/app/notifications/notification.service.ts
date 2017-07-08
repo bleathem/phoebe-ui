@@ -20,7 +20,7 @@ export class NotificationService {
 
   constructor(@Inject(ComponentFactoryResolver) factoryResolver, private store: Store<AppStore>) {
     this.factoryResolver = factoryResolver
-    this.store.select(store => store.notificationState.notifications)
+    this.store.select(store => store.notificationReducer.notifications)
     .filter(notifications => !!notifications.length)
     .subscribe(notifications => {
       let notification: Notification = notifications[notifications.length - 1];

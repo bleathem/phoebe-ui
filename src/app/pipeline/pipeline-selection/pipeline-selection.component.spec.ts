@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { PipelineXhrModule } from '../pipeline-xhr/pipeline-xhr.module';
-import { pipelines as pipelineState } from '../pipeline.reducer'
+import { pipelineReducer } from '../pipeline.reducer'
 
 import { PipelineSelectionComponent } from './pipeline-selection.component';
 
@@ -11,7 +11,7 @@ describe('PipelineSelectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ PipelineXhrModule, StoreModule.provideStore({pipelineState}) ],
+      imports: [ PipelineXhrModule, StoreModule.provideStore({pipelineReducer}) ],
       declarations: [ PipelineSelectionComponent ]
     })
     .compileComponents();

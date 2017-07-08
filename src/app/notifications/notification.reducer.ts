@@ -10,7 +10,7 @@ export const initialState: NotificationState = {
   notifications: []
 };
 
-export function notifications(state = initialState, action: Actions): NotificationState {
+export function notificationReducer(state = initialState, action: Actions): NotificationState {
 	switch (action.type) {
 		case ADD_NOTIFICATION:
 			return {

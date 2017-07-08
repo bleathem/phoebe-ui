@@ -12,8 +12,8 @@ import { ReportsModule } from './reports/reports.module';
 import { NotificationService } from './notifications/notification.service';
 import { NotificationComponent } from './notifications/notification/notification.component';
 
-import { pipelines as pipelineState } from './pipeline/pipeline.reducer'
-import { notifications as notificationState } from './notifications/notification.reducer'
+import { pipelineReducer } from './pipeline/pipeline.reducer'
+import { notificationReducer } from './notifications/notification.reducer'
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -28,8 +28,8 @@ import { AppComponent } from './app.component';
     DataMockModule,
     NotificationsModule,
     StoreModule.provideStore({
-      pipelineState,
-      notificationState
+      pipelineReducer,
+      notificationReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
