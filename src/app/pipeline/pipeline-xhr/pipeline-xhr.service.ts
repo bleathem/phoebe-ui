@@ -16,7 +16,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PipelineXhrService {
-  private elasticUrl = 'http://elasticsearch.perf.lab.eng.bos.redhat.com/';
+  private elasticUrl = 'https://elasticsearch.perf.lab.eng.bos.redhat.com/';
   private path = '<jenkins-staging2-logs-{now/d-2d}>,<jenkins-staging2-logs-{now/d-1d}>,<jenkins-staging2-logs-{now/d}>,';
   private pipelineQuery = {
     "query": {
