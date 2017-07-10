@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,6 +20,8 @@ import { NotificationEffects } from "./notifications/notification.effects";
 
 import { AppComponent } from './app.component';
 
+import { AppErrorHandler } from './error.handler';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -39,7 +41,7 @@ import { AppComponent } from './app.component';
     EffectsModule.run(NotificationEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
-  providers: [],
+  providers: [ { provide: ErrorHandler, useClass: AppErrorHandler } ],
   bootstrap: [AppComponent],
   entryComponents: [NotificationComponent]
 })

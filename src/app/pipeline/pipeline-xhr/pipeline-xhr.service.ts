@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Store } from '@ngrx/store';
-import { AppStore } from '../../app.store';
 import { Pipeline, PackageBuild, TestCase } from '../pipeline.model';
 
 import { LoadPipelinesAction, LoadPackageBuildsAction, LoadTestCasesAction } from '../pipeline.actions'
@@ -16,7 +14,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PipelineXhrService {
-  private elasticUrl = 'https://elasticsearch.perf.lab.eng.bos.redhat.com/';
+  private elasticUrl = 'http://elasticsearch.perf.lab.eng.bos.redhat.com/';
   private path = '<jenkins-staging2-logs-{now/d-2d}>,<jenkins-staging2-logs-{now/d-1d}>,<jenkins-staging2-logs-{now/d}>,';
   private pipelineQuery = {
     "query": {
@@ -78,13 +76,13 @@ export class PipelineXhrService {
    }
   }
 
-  constructor (private http: Http, private store: Store<AppStore>) { }
+  constructor (private http: Http) { }
 
   getPipelines(): Observable<Pipeline[]> {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     return this.http.post(url, JSON.stringify(this.pipelineQuery))
     .map(this.extractPipeline)
-    .catch(this.showError(`Error retrieving Pipeline Runs from ${this.elasticUrl}`));
+    .catch(error => {throw new Error(`Error retrieving Pipeline Runs from ${this.elasticUrl}`)});
   }
 
   getPackageBuilds(pipeline: Pipeline): Observable<PackageBuild[]> {
@@ -93,7 +91,7 @@ export class PipelineXhrService {
     query.query.match['ci_job.name'] = pipeline.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractPackageBuild)
-    .catch(this.showError(`Error retrieving Package Builds from ${this.elasticUrl}`));
+    .catch(error => {throw new Error(`Error retrieving Package Builds from ${this.elasticUrl}`)});
   }
 
   getTestCases(pipeline: Pipeline, packageBuild: PackageBuild) {
@@ -103,7 +101,7 @@ export class PipelineXhrService {
     query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractTestCase)
-    .catch(this.showError(`Error retrieving Test Cases from ${this.elasticUrl}`));
+    .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
   }
 
   private extractPipeline(res: Response) {
@@ -133,29 +131,4 @@ export class PipelineXhrService {
     });
   }
 
-  private handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${err.type} - ${err.reason || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
-
-  private showError(message: string) {
-    // we need to return a function for the error handler
-    return (error: Response | any, caught: Observable<any>) => {
-      // handle the error normally
-      return this.handleError(error)
-      .catch(errMsg => {
-        // Add a notification before returning
-        this.store.dispatch(new AddNotificationAction(new Notification(message, 'danger')));
-        return Observable.throw(errMsg);
-      });
-    }
-  }
 }

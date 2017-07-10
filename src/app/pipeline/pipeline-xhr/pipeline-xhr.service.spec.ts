@@ -1,6 +1,5 @@
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
 
 import { pipelineReducer } from '../pipeline.reducer'
 import { Pipeline, PackageBuild } from '../pipeline.model'
@@ -11,15 +10,13 @@ import { XHRBackend, Http, Response, BaseRequestOptions, ConnectionBackend, Resp
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { PipelineXhrService } from './pipeline-xhr.service';
-import { Store } from '@ngrx/store';
-import { AppStore } from '../../app.store';
 
 import { mockPipelinesResponse, mockPackageBuildResponse, mockTestData } from './mock.data';
 
 describe('PipelineXhrService', () => {
   beforeEach(async() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule, BrowserModule, StoreModule.provideStore({pipelineReducer}) ],
+      imports: [ HttpModule, BrowserModule ],
       providers: [ PipelineXhrService, MockBackend, XHRBackend, BaseRequestOptions,
         {
           provide: Http,
