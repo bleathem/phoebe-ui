@@ -75,6 +75,31 @@ export class PipelineXhrService {
     }
   }
 
+  private queryAllPipelinesAndPackageBuilds = {
+    "query": {
+      "prefix": {
+        "ci_job.name": "Interop"
+      }
+    },
+    "size": 0,
+    "aggs": {
+      "job_name": {
+        "terms": {
+          "field": "ci_job.name",
+          "size": 0
+        },
+        "aggs": {
+          "build_agg": {
+            "terms": {
+              "field": "ci_job.number"
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   constructor (private http: Http) { }
 
   getPipelines(): Observable<Pipeline[]> {
@@ -95,13 +120,22 @@ export class PipelineXhrService {
     .catch(error => {throw new Error(`Error retrieving Package Builds from ${this.elasticUrl}`)});
   }
 
-  getTestCases(pipeline: Pipeline, packageBuild: PackageBuild) {
+  getTestSuites(pipeline: Pipeline, packageBuild: PackageBuild) {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     let query = JSON.parse(JSON.stringify(this.testCaseQuery));
     query.query.bool.must[0].match['ci_job.name'] = pipeline.key;
     query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractTestCase.bind(this))
+    .catch(this.handleError)
+    .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
+  }
+
+  getAllPipelinesAndPackageBuilds() {
+    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    let query = JSON.parse(JSON.stringify(this.queryAllPipelinesAndPackageBuilds));
+    return this.http.post(url, JSON.stringify(query))
+    .map(this.extractPipelineAndPackageBuild)
     .catch(this.handleError)
     .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
   }
@@ -124,9 +158,23 @@ export class PipelineXhrService {
     });
   }
 
+  private extractPipelineAndPackageBuild(res: Response) {
+    let body = res.json();
+    // console.log(JSON.stringify(body, null, 2));
+    return body.aggregations.job_name.buckets
+    .map(bucket => {
+      let pipeline = new Pipeline(bucket.key, bucket.doc_count);
+      pipeline.packageBuilds = bucket.build_agg.buckets
+      .map(bucket => {
+        return new PackageBuild(bucket.key, bucket.doc_count);
+      });
+      return pipeline;
+    });
+  }
+
   private extractTestCase(res: Response) {
     let body = res.json();
-    console.log(JSON.stringify(body, null, 2));
+    // console.log(JSON.stringify(body, null, 2));
     let self = this;
     return body.aggregations.testsuite_name.buckets
     .map(bucket => {
