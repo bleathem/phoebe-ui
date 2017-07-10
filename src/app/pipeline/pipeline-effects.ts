@@ -5,13 +5,18 @@ import {
   REQUEST_PIPELINES,
   SELECT_PIPELINE,
   SELECT_PACKAGE_BUILD,
+  LOAD_TEST_CASES,
   LoadPipelinesAction,
   LoadPackageBuildsAction,
   LoadTestCasesAction
 } from './pipeline.actions';
+import { AddNotificationAction } from '../notifications/notification.actions';
+import { Notification } from '../notifications/notification.model';
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
 import {PipelineXhrService} from './pipeline-xhr/pipeline-xhr.service';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class PipelineEffects {
@@ -46,4 +51,12 @@ export class PipelineEffects {
       this.pipelineXhrService.getTestCases(pipeline, packageBuild)
       .switchMap(testCases => Observable.of(new LoadTestCasesAction(testCases)))
     );
+
+  @Effect() loadTestCasesEffect$ = this.action$
+    .ofType(LOAD_TEST_CASES)
+    .map(toPayload)
+    .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
+    .switchMap(([testCases, pipeline]) => Observable.of(new AddNotificationAction(
+      new Notification(`Test cases loaded for ${pipeline.key}`, 'success', 3)
+    )));
 }

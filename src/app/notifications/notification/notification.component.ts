@@ -6,17 +6,31 @@ import { Component, Input, ElementRef } from '@angular/core';
   styleUrls: ['./notification.component.less']
 })
 export class NotificationComponent {
+  @Input() public show: boolean = true;
   @Input() public message: string;
   @Input() public severity: string = 'success';
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {
+  }
+
+  @Input()
+  set lifetime(lifetime: number) {
+    if (lifetime > 0) {
+      setTimeout(() => {
+        this.el.nativeElement.classList.add('fade');
+        this.el.nativeElement.addEventListener('transitionend', event => {
+          this.show = false;
+        }, false)
+      }, lifetime * 1000);
+    }
+  }
 
   getAlertSeverityClass() {
     return `alert-${this.severity}`;
   }
 
   remove() {
-    this.el.nativeElement.parentNode.removeChild(this.el.nativeElement);
+    this.show=false;
   }
 
 }

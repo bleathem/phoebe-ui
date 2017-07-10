@@ -5,8 +5,11 @@ import {
   ADD_NOTIFICATION
 } from './notification.actions';
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
 import {NotificationService} from './notification.service';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class NotificationEffects {
@@ -15,6 +18,8 @@ export class NotificationEffects {
 
   @Effect() addNotification$ = this.action$
     .ofType(ADD_NOTIFICATION)
-    .map(toPayload)
-    .map(notification => this.notificationService.showNotification(notification.message, notification.severity));
+    .switchMap(action => {
+      this.notificationService.showNotification(action.payload);
+      return Observable.of({type: null});
+    });
 }
