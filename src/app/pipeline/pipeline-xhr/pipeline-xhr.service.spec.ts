@@ -103,7 +103,7 @@ describe('PipelineXhrService', () => {
     it('should return data', async() => {
       // Initiate the request
       service['getPackageBuilds'](pipeline).subscribe(packageBuilds => {
-        expect(packageBuilds.length).toEqual(mockTestData.aggregations.testcase_state.buckets.length);
+        expect(packageBuilds.length).toEqual(mockTestData.aggregations.testsuite_name.buckets.length);
       }, error => {
         console.error(error);
       });

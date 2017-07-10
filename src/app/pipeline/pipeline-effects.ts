@@ -5,10 +5,10 @@ import {
   REQUEST_PIPELINES,
   SELECT_PIPELINE,
   SELECT_PACKAGE_BUILD,
-  LOAD_TEST_CASES,
+  LOAD_TEST_SUITES,
   LoadPipelinesAction,
   LoadPackageBuildsAction,
-  LoadTestCasesAction
+  LoadTestSuitesAction
 } from './pipeline.actions';
 import { AddNotificationAction } from '../notifications/notification.actions';
 import { Notification } from '../notifications/notification.model';
@@ -49,11 +49,11 @@ export class PipelineEffects {
     .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
     .switchMap(([packageBuild, pipeline]) =>
       this.pipelineXhrService.getTestCases(pipeline, packageBuild)
-      .switchMap(testCases => Observable.of(new LoadTestCasesAction(testCases)))
+      .switchMap(testSuites => Observable.of(new LoadTestSuitesAction(testSuites)))
     );
 
   @Effect() loadTestCasesEffect$ = this.action$
-    .ofType(LOAD_TEST_CASES)
+    .ofType(LOAD_TEST_SUITES)
     .map(toPayload)
     .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
     .switchMap(([testCases, pipeline]) => Observable.of(new AddNotificationAction(

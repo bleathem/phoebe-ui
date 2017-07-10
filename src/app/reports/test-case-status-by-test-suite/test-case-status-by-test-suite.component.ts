@@ -3,7 +3,7 @@ import * as c3 from 'c3';
 import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
 import { Store } from '@ngrx/store';
 import { AppStore } from '../../app.store';
-import { TestCase } from '../../pipeline/pipeline.model';
+import { TestCase, TestSuite } from '../../pipeline/pipeline.model';
 
 import 'rxjs/add/operator/filter';
 
@@ -16,21 +16,14 @@ export class TestCaseStatusByTestSuiteComponent implements OnInit {
   @Input() hideDetails: boolean = true;
 
   // [["Failed", 24],["Skipped",8],["Passed",76],["Error",19]]
-  @Output() testCases: (string | number)[][];
+  @Output() testSuites: TestSuite[];
 
   constructor(private store: Store<AppStore>, private testCaseStatusService: TestCaseStatusService) {
-    this.store.select(store => store.pipelineReducer.testCases)
+    this.store.select(store => store.pipelineReducer.testSuites)
     .filter(state => !!state)
     .subscribe(state => {
-      console.log(state);
-      this.testCases = state.map(testCase => {
-        return [ this.capitalizeFirstLetter(testCase.key), testCase.id ];
-      });
+      this.testSuites = state;
     });
-  }
-
-  private capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   ngOnInit() {

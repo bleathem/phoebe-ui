@@ -129,7 +129,7 @@ export const mockPackageBuildResponse = {
 }
 
 export const mockTestData = {
-  "took": 4,
+  "took": 5,
   "timed_out": false,
   "_shards": {
     "total": 3,
@@ -137,22 +137,32 @@ export const mockTestData = {
     "failed": 0
   },
   "hits": {
-    "total": 14689,
+    "total": 14779,
     "max_score": 0,
     "hits": []
   },
   "aggregations": {
-    "testcase_state": {
+    "testsuite_name": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
       "buckets": [
         {
-          "key": "Successful",
-          "doc_count": 13
-        },
-        {
-          "key": "passed",
-          "doc_count": 1
+          "key": "ci_framework",
+          "doc_count": 14,
+          "testcase_state": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Successful",
+                "doc_count": 13
+              },
+              {
+                "key": "passed",
+                "doc_count": 1
+              }
+            ]
+          }
         }
       ]
     }

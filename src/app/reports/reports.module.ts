@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from '../charts/charts.module';
+import { PipelineModule } from '../pipeline/pipeline.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IntroComponent } from './intro/intro.component';
@@ -17,6 +18,7 @@ import { CollapsiblePanelComponent } from './collapsible-panel/collapsible-panel
     BrowserAnimationsModule,
     CommonModule,
     ChartsModule,
+    PipelineModule,
     Ng2PageScrollModule.forRoot()
   ],
   declarations: [

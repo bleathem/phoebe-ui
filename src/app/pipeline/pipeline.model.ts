@@ -14,9 +14,18 @@ export class PackageBuild {
   }
 }
 
-export class TestCase {
-  constructor(public key: string, public id: number) {
-    this.id = id;
+export class TestSuite {
+  public testCases: TestCase[];
+
+  constructor(public key: string) {
     this.key = key;
+    this.testCases = [];
+  }
+}
+
+export class TestCase {
+  constructor(public key: string, public count: number) {
+    this.key = key;
+    this.count = count;
   }
 }
