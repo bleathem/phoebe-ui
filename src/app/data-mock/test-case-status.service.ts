@@ -20,18 +20,17 @@ export class TestCaseStatusService {
     this.initPauser();
 
     this.byTestSuiteObservable = this.getRandomDataObservable([
+      ['Passed', 30, 80, 1],
       ['Failed', 5, 30, 1],
       ['Skipped', 5, 10, 1],
-      ['Passed', 30, 80, 1],
       ['Error', 5, 30, 1]
     ]);
 
     this.byPipelineRunObservable = this.getRandomDataObservable([
-      ['data1', 30, 400, 6],
-      ['data2', 30, 400, 6],
-      ['data3', 30, 400, 6],
-      ['data4', 30, 400, 6],
-      ['data5', 30, 400, 6]
+      ['Passed', 30, 80, 6],
+      ['Failed', 5, 30, 6],
+      ['Skipped', 5, 10, 6],
+      ['Error', 5, 30, 6]
     ]);
 
     this.byTimeComponentObservable = this.getRandomDataObservable([

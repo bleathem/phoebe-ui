@@ -13,7 +13,8 @@ export class TestCaseStatusByPipelineRunComponent implements OnInit {
   constructor(private testCaseStatusService: TestCaseStatusService) { }
 
   ngOnInit() {
-    this.testCaseStatusService.byPipelineRunObservable.subscribe(data => this.chartData = data);
+    this.testCaseStatusService.byPipelineRunObservable
+    .subscribe(data => this.chartData = [['x', 246, 247, 248, 250, 251, 252]].concat(data));
   }
 
 }

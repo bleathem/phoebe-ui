@@ -23,7 +23,8 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     lineChartConfig.data = {
       columns: lineChartDataColumns,
-      type: 'line'
+      type: 'line',
+      x: 'x'
     };
     lineChartConfig.data.columns = this.data || [];
     this.chart = c3.generate(lineChartConfig);
