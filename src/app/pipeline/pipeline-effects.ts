@@ -31,17 +31,13 @@ export class PipelineEffects {
       .switchMap(pipelines => Observable.of(new LoadPipelinesAction(pipelines)))
     );
 
-  // @Effect() selectPipeLineEffect$ = this.action$
-  //   .ofType(SELECT_PIPELINE)
-  //   .map(toPayload)
-  //   .switchMap((selectedPipeline) =>
-  //     this.pipelineXhrService.getPackageBuilds(selectedPipeline)
-  //     .map(packageBuilds => {
-  //       selectedPipeline.packageBuilds = packageBuilds;
-  //       return selectedPipeline;
-  //     })
-  //     .switchMap(packageBuilds => Observable.of(new LoadPackageBuildsAction(selectedPipeline)))
-  //   );
+  @Effect() selectPipeLineEffect$ = this.action$
+    .ofType(SELECT_PIPELINE)
+    .map(toPayload)
+    .switchMap((selectedPipeline) =>
+      this.pipelineXhrService.getPackageBuilds(selectedPipeline)
+      .switchMap(packageBuilds => Observable.of(new LoadPackageBuildsAction(selectedPipeline, packageBuilds)))
+    );
 
   @Effect() selectPackageBuildEffect$ = this.action$
     .ofType(SELECT_PACKAGE_BUILD)

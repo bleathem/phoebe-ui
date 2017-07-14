@@ -26,13 +26,9 @@ export function pipelineReducer(state = initialState, action: Actions): Pipeline
         testSuites: null
       };
     case LOAD_PACKAGE_BUILDS:
-      state.pipelines.forEach(_pipeline => {
-        if (_pipeline.key = action.payload.key) {
-          _pipeline.packageBuilds = action.payload.packageBuilds;
-        }
-      })
+      let updatedPipeline = Object.assign({}, action.payload.pipeline, { packageBuilds: action.payload.packageBuilds });
 			return {
-        pipelines: state.pipelines,
+        pipelines: state.pipelines.map(_pipeline => _pipeline.id === updatedPipeline.id ? updatedPipeline : _pipeline),
         selectedPipeline: state.selectedPipeline,
         selectedPackageBuild: null,
         testSuites: null

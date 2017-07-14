@@ -23,7 +23,17 @@ export class LoadPipelinesAction implements Action {
 export class LoadPackageBuildsAction implements Action {
   readonly type = LOAD_PACKAGE_BUILDS;
 
-  constructor(public payload: Pipeline) { }
+  public payload: {
+    pipeline: Pipeline
+    packageBuilds: PackageBuild[]
+  };
+
+  constructor(public pipeline: Pipeline, public packageBuilds: PackageBuild[]) {
+    this.payload = {
+      pipeline: pipeline,
+      packageBuilds: packageBuilds
+    }
+  }
 }
 
 export class LoadTestSuitesAction implements Action {
