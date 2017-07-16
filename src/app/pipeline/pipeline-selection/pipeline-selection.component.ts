@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppStore } from '../../app.store';
 import { Pipeline, PackageBuild } from '../pipeline.model';
 import { SelectPipelineAction, SelectPackageBuildAction, RequestPipelinesAction } from '../pipeline.actions';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-pipeline-selection',
@@ -10,37 +11,24 @@ import { SelectPipelineAction, SelectPackageBuildAction, RequestPipelinesAction 
   styleUrls: ['./pipeline-selection.component.less']
 })
 export class PipelineSelectionComponent implements OnInit {
-  @Output() pipelines: Pipeline[];
-  @Output() packageBuilds: PackageBuild[];
+  @Output() pipelines: Observable<Pipeline[]>;
+  @Output() packageBuilds: Observable<PackageBuild[]>;
 
   constructor(private store: Store<AppStore>) {
-    this.store.select(store => store.pipelineReducer.pipelines)
-    .subscribe(state => {
-      this.pipelines = state;
-    });
-
-    this.store.select(store => store.pipelineReducer.selectedPipeline && store.pipelineReducer.selectedPipeline.packageBuilds)
-    .subscribe(state => {
-      this.packageBuilds = state;
-    });
+    this.pipelines = this.store.select(store => store.pipelineReducer.pipelines);
+    this.packageBuilds = this.store.select(store => store.pipelineReducer.selectedPipeline && store.pipelineReducer.selectedPipeline.packageBuilds);
   }
 
   ngOnInit() {
     this.store.dispatch(new RequestPipelinesAction());
   }
 
-  selectPipeline(pipelineKey) {
-    let pipeline = this.pipelines.filter(_pipeline => {
-      return _pipeline.key === pipelineKey;
-    })[0];
-    this.store.dispatch(new SelectPipelineAction(pipeline));
+  selectPipeline(pipelineKey: string) {
+    this.store.dispatch(new SelectPipelineAction(pipelineKey));
   }
 
-  selectPackageBuild(packageBuildKey) {
-    let packageBuild = this.packageBuilds.filter(_packageBuild => {
-      return _packageBuild.key == packageBuildKey;
-    })[0];
-    this.store.dispatch(new SelectPackageBuildAction(packageBuild));
+  selectPackageBuild(packageBuildKey: number) {
+    this.store.dispatch(new SelectPackageBuildAction(packageBuildKey));
   }
 
 }

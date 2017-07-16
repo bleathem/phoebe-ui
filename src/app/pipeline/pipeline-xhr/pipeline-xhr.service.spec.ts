@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { pipelineReducer } from '../pipeline.reducer'
 import { Pipeline, PackageBuild } from '../pipeline.model'
-import { LoadPipelinesAction, LoadPackageBuildsAction } from '../pipeline.actions'
 
 import { async, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { XHRBackend, Http, Response, BaseRequestOptions, ConnectionBackend, ResponseOptions } from '@angular/http';

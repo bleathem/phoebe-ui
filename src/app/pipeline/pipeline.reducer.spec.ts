@@ -1,8 +1,24 @@
 import {initialState, pipelineReducer} from './pipeline.reducer';
 import { Pipeline, PackageBuild, TestSuite } from './pipeline.model';
-import { Actions,
-  LOAD_PIPELINES, SELECT_PIPELINE, LOAD_PACKAGE_BUILDS, SELECT_PACKAGE_BUILD, LOAD_TEST_SUITES,
-  LoadPipelinesAction, LoadPackageBuildsAction, SelectPipelineAction, SelectPackageBuildAction, LoadTestSuitesAction
+import {
+  REQUEST_PIPELINES,
+  PIPELINES,
+  PIPELINE,
+  SELECT_PIPELINE,
+  PACKAGE_BUILDS,
+  PACKAGE_BUILD,
+  SELECT_PACKAGE_BUILD,
+  REQUEST_TEST_SUITES,
+  TEST_SUITES,
+  RequestPipelinesAction,
+  PipelinesAction,
+  PipelineAction,
+  SelectPipelineAction,
+  PackageBuildsAction,
+  PackageBuildAction,
+  SelectPackageBuildAction,
+  RequestTestSuitesAction,
+  TestSuitesAction
 } from './pipeline.actions';
 
 describe('pipelineReducer', () => {
@@ -13,7 +29,7 @@ describe('pipelineReducer', () => {
 
   it('should load pipelines', () => {
     let pipelines = [ new Pipeline('asd', 123) ];
-    let state = pipelineReducer(undefined, new LoadPipelinesAction(pipelines));
+    let state = pipelineReducer(undefined, new PipelinesAction(pipelines));
     expect(state.pipelines.length).toEqual(pipelines.length);
   });
 
@@ -22,7 +38,7 @@ describe('pipelineReducer', () => {
     let pipelines = [ Object.freeze(Object.assign({}, pipeline)) ];
     let packageBuilds = [ new PackageBuild(345, 234) ];
     let _initialState = Object.assign({}, initialState, {pipelines: pipelines});
-    let state = pipelineReducer(_initialState, new LoadPackageBuildsAction(pipeline, packageBuilds));
+    let state = pipelineReducer(_initialState, new PackageBuildsAction(pipeline, packageBuilds));
     expect(state.pipelines.length).toEqual(pipelines.length);
     expect(state.pipelines[0].key).toEqual(pipelines[0].key);
     expect(state.pipelines[0].packageBuilds).toEqual(packageBuilds);

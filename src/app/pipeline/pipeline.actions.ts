@@ -1,27 +1,60 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Pipeline, PackageBuild, TestSuite, TestCase } from './pipeline.model';
 
+/**
+Actions can be divided into the following three categories: commands, documents, events.
+Commands:
+Dispatching a command is akin to invoking a method: we want to do something specific.
+This means we can only have one place, one handler, for every command.
+This also means that we may expect a reply: either a value or an error.
+To indicate that an action is a command start with a verb.
+
+Documents:
+When dispatching a document, we notify the application that some entity has been updated.
+Name documents using nouns or noun phrases
+
+Events:
+When dispatching an event, we notify the application about an occured change.
+As with documents, we do not get a reply and there might be more than one handler.
+**/
+
 export const REQUEST_PIPELINES = 'REQUEST_PIPELINES';
-export const LOAD_PIPELINES = 'LOAD_PIPELINES';
-export const LOAD_PACKAGE_BUILDS = 'LOAD_PACKAGE_BUILDS';
-export const LOAD_TEST_SUITES = 'LOAD_TEST_SUITES';
+export const PIPELINES = 'PIPELINES';
+export const PIPELINE = 'PIPELINE';
 export const SELECT_PIPELINE = 'SELECT_PIPELINE';
+export const PACKAGE_BUILDS = 'PACKAGE_BUILDS';
+export const PACKAGE_BUILD = 'PACKAGE_BUILD';
 export const SELECT_PACKAGE_BUILD = 'SELECT_PACKAGE_BUILD';
+export const REQUEST_TEST_SUITES = 'REQUEST_TEST_SUITES';
+export const TEST_SUITES = 'TEST_SUITES';
 
 export class RequestPipelinesAction implements Action {
   readonly type = REQUEST_PIPELINES;
+  public payload = null;
 
   constructor() { }
 }
 
-export class LoadPipelinesAction implements Action {
-  readonly type = LOAD_PIPELINES;
+export class PipelinesAction implements Action {
+  readonly type = PIPELINES;
 
   constructor(public payload: Pipeline[]) { }
 }
 
-export class LoadPackageBuildsAction implements Action {
-  readonly type = LOAD_PACKAGE_BUILDS;
+export class PipelineAction implements Action {
+  readonly type = PIPELINE;
+
+  constructor(public payload: Pipeline) { }
+}
+
+export class SelectPipelineAction implements Action {
+  readonly type = SELECT_PIPELINE;
+
+  constructor(public payload: string) { }
+}
+
+export class PackageBuildsAction implements Action {
+  readonly type = PACKAGE_BUILDS;
 
   public payload: {
     pipeline: Pipeline
@@ -36,27 +69,46 @@ export class LoadPackageBuildsAction implements Action {
   }
 }
 
-export class LoadTestSuitesAction implements Action {
-  readonly type = LOAD_TEST_SUITES;
+export class PackageBuildAction implements Action {
+  readonly type = PACKAGE_BUILD;
 
-  constructor(public payload: TestSuite[]) { }
-}
-
-export class SelectPipelineAction implements Action {
-  readonly type = SELECT_PIPELINE;
-
-  constructor(public payload: Pipeline) { }
+  constructor(public payload: PackageBuild) { }
 }
 
 export class SelectPackageBuildAction implements Action {
   readonly type = SELECT_PACKAGE_BUILD;
 
-  constructor(public payload: PackageBuild) { }
+  constructor(public payload: number) { }
+}
+
+export class RequestTestSuitesAction implements Action {
+  readonly type = REQUEST_TEST_SUITES;
+  public payload: {
+    pipeline: Pipeline
+    packageBuild: PackageBuild
+  };
+
+  constructor(public pipeline: Pipeline, public packageBuild: PackageBuild) {
+    this.payload = {
+      pipeline: pipeline,
+      packageBuild: packageBuild
+    }
+  }
+}
+
+export class TestSuitesAction implements Action {
+  readonly type = TEST_SUITES;
+
+  constructor(public payload: TestSuite[]) { }
 }
 
 export type Actions
-  = LoadPipelinesAction
-  | LoadPackageBuildsAction
+  = RequestPipelinesAction
+  | PipelinesAction
+  | PipelineAction
   | SelectPipelineAction
+  | PackageBuildsAction
+  | PackageBuildAction
   | SelectPackageBuildAction
-  | LoadTestSuitesAction;
+  | RequestTestSuitesAction
+  | TestSuitesAction;

@@ -9,7 +9,7 @@
       <label for="pipeline" class=" control-label">Pipeline Run:</label>
         <select class="form-control" #pipeline (change)="selectPipeline(pipeline.value)">
           <option disabled selected hidden>&lt;Pipeline Run&gt;</option>
-          <option *ngFor="let pipeline of pipelines">
+          <option *ngFor="let pipeline of pipelines | async">
             {{ pipeline.key }}
           </option>
         </select>
@@ -18,7 +18,7 @@
     <label for="package" class="control-label">Package Build:</label>
     <select class="form-control" #package (change)="selectPackageBuild(package.value)">
       <option disabled selected hidden>&lt;Package Build&gt;</option>
-      <option *ngFor="let packageBuild of packageBuilds">
+      <option *ngFor="let packageBuild of packageBuilds | async">
         {{ packageBuild.key }}
       </option>
     </select>
