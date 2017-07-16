@@ -1,8 +1,9 @@
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { pipelineReducer } from '../pipeline.reducer'
-import { Pipeline, PackageBuild } from '../pipeline.model'
+import { pipelineReducer } from '../pipeline.reducer';
+import { Pipeline, PackageBuild } from '../pipeline.model';
+import { RandomDataService } from './random-data.service';
 
 import { async, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { XHRBackend, Http, Response, BaseRequestOptions, ConnectionBackend, ResponseOptions } from '@angular/http';
@@ -16,7 +17,7 @@ describe('PipelineXhrService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule, BrowserModule ],
-      providers: [ PipelineXhrService, MockBackend, XHRBackend, BaseRequestOptions,
+      providers: [ PipelineXhrService, MockBackend, XHRBackend, BaseRequestOptions, RandomDataService,
         {
           provide: Http,
           deps: [ MockBackend, BaseRequestOptions], // Replace MockBackend here with XHRBackend for a real request
@@ -130,6 +131,7 @@ describe('PipelineXhrService', () => {
     it('should return data', () => {
       // Initiate the request
       service.getTestSuites(pipeline, packageBuild).subscribe(testSuites => {
+        testSuites = testSuites.filter(suite => !suite['random']);
         expect(testSuites.length).toEqual(mockTestData.aggregations.testsuite_name.buckets.length);
       }, error => {
         throw new Error(error);

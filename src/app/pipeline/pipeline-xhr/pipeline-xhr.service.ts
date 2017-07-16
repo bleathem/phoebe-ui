@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Pipeline, PackageBuild, TestSuite, TestCase } from '../pipeline.model';
+import { RandomDataService } from './random-data.service'
 
 import { AddNotificationAction } from '../../notifications/notification.actions'
 import { Notification } from '../../notifications/notification.model'
@@ -100,7 +101,7 @@ export class PipelineXhrService {
   }
 
 
-  constructor (private http: Http) { }
+  constructor (private http: Http, private randomDataService: RandomDataService) { }
 
   getPipelines(): Observable<Pipeline[]> {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
@@ -126,7 +127,7 @@ export class PipelineXhrService {
     query.query.bool.must[0].match['ci_job.name'] = pipeline.key;
     query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
     return this.http.post(url, JSON.stringify(query))
-    .map(this.extractTestCase.bind(this))
+    .map(this.extractTestSuite.bind(this))
     .catch(this.handleError)
     .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
   }
@@ -172,11 +173,11 @@ export class PipelineXhrService {
     });
   }
 
-  private extractTestCase(res: Response) {
+  private extractTestSuite(res: Response): TestSuite[] {
     let body = res.json();
     // console.log(JSON.stringify(body, null, 2));
     let self = this;
-    return body.aggregations.testsuite_name.buckets
+    let testSuites = body.aggregations.testsuite_name.buckets
     .map(bucket => {
       let testSuite = new TestSuite(bucket.key);
       bucket.testcase_state.buckets.forEach(bucket => {
@@ -185,6 +186,10 @@ export class PipelineXhrService {
       });
       return testSuite;
     });
+    for (let i = testSuites.length; i < 6; i++) {
+      testSuites.push(this.randomDataService.getRandomTestSuite(`Random Test Suite #${i+1}`));
+    }
+    return testSuites;
   }
 
   private handleError (error: Response | any) {
