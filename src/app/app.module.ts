@@ -37,6 +37,9 @@ import { AppErrorHandler } from './error.handler';
       pipelineReducer,
       notificationReducer
     }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    }),
     EffectsModule.run(PipelineEffects),
     EffectsModule.run(NotificationEffects),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
