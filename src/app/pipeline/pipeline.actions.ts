@@ -21,10 +21,8 @@ As with documents, we do not get a reply and there might be more than one handle
 export const REQUEST_PIPELINES = 'REQUEST_PIPELINES';
 export const PIPELINES = 'PIPELINES';
 export const PIPELINE = 'PIPELINE';
-export const SELECT_PIPELINE = 'SELECT_PIPELINE';
 export const PACKAGE_BUILDS = 'PACKAGE_BUILDS';
 export const PACKAGE_BUILD = 'PACKAGE_BUILD';
-export const SELECT_PACKAGE_BUILD = 'SELECT_PACKAGE_BUILD';
 export const REQUEST_TEST_SUITES = 'REQUEST_TEST_SUITES';
 export const TEST_SUITES = 'TEST_SUITES';
 
@@ -47,12 +45,6 @@ export class PipelineAction implements Action {
   constructor(public payload: Pipeline) { }
 }
 
-export class SelectPipelineAction implements Action {
-  readonly type = SELECT_PIPELINE;
-
-  constructor(public payload: string) { }
-}
-
 export class PackageBuildsAction implements Action {
   readonly type = PACKAGE_BUILDS;
 
@@ -73,12 +65,6 @@ export class PackageBuildAction implements Action {
   readonly type = PACKAGE_BUILD;
 
   constructor(public payload: PackageBuild) { }
-}
-
-export class SelectPackageBuildAction implements Action {
-  readonly type = SELECT_PACKAGE_BUILD;
-
-  constructor(public payload: number) { }
 }
 
 export class RequestTestSuitesAction implements Action {
@@ -106,9 +92,7 @@ export type Actions
   = RequestPipelinesAction
   | PipelinesAction
   | PipelineAction
-  | SelectPipelineAction
   | PackageBuildsAction
   | PackageBuildAction
-  | SelectPackageBuildAction
   | RequestTestSuitesAction
   | TestSuitesAction;

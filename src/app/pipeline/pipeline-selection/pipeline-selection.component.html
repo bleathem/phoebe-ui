@@ -7,18 +7,26 @@
   <div class="card-pf-body row">
     <div class="col-xs-6 col-sm-4 col-md-2">
       <label for="pipeline" class=" control-label">Pipeline Run:</label>
-        <select class="form-control" #pipeline (change)="selectPipeline(pipeline.value)">
-          <option disabled selected hidden>&lt;Pipeline Run&gt;</option>
-          <option *ngFor="let pipeline of pipelines | async">
-            {{ pipeline.key }}
-          </option>
-        </select>
+      <select name="pipelineSelect"
+              class="form-control"
+              [ngModel]="selectedPipeline | async"
+              [compareWith]="keyCompare"
+              (ngModelChange)="selectPipeline($event)">
+        <option disabled selected hidden value="null">&lt;Pipeline Run&gt;</option>
+        <option *ngFor="let pipeline of pipelines | async" [ngValue]="pipeline">
+          {{ pipeline.key }}
+        </option>
+      </select>
   </div><!-- /col -->
   <div class="col-xs-6 col-sm-4 col-md-2">
     <label for="package" class="control-label">Package Build:</label>
-    <select class="form-control" #package (change)="selectPackageBuild(package.value)">
-      <option disabled selected hidden>&lt;Package Build&gt;</option>
-      <option *ngFor="let packageBuild of packageBuilds | async">
+    <select name="pipelineSelect"
+            class="form-control"
+            [ngModel]="selectedPackageBuild | async"
+            [compareWith]="keyCompare"
+            (ngModelChange)="selectPackageBuild($event)">
+      <option disabled selected hidden value="null">&lt;Package Build&gt;</option>
+      <option *ngFor="let packageBuild of packageBuilds | async" [ngValue]="packageBuild">
         {{ packageBuild.key }}
       </option>
     </select>

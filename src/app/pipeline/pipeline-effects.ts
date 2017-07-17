@@ -5,19 +5,15 @@ import {
   REQUEST_PIPELINES,
   PIPELINES,
   PIPELINE,
-  SELECT_PIPELINE,
   PACKAGE_BUILDS,
   PACKAGE_BUILD,
-  SELECT_PACKAGE_BUILD,
   REQUEST_TEST_SUITES,
   TEST_SUITES,
   RequestPipelinesAction,
   PipelinesAction,
   PipelineAction,
-  SelectPipelineAction,
   PackageBuildsAction,
   PackageBuildAction,
-  SelectPackageBuildAction,
   RequestTestSuitesAction,
   TestSuitesAction
 } from './pipeline.actions';
@@ -28,6 +24,7 @@ import {PipelineXhrService} from './pipeline-xhr/pipeline-xhr.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
@@ -40,28 +37,36 @@ export class PipelineEffects {
     .map(toPayload)
     .switchMap(() =>
       this.pipelineXhrService.getAllPipelinesAndPackageBuilds()
-      .switchMap(pipelines => Observable.of(new PipelinesAction(pipelines)))
+      .switchMap(pipelines => [
+        new PipelinesAction(pipelines),
+        new PipelineAction(pipelines[0]),
+        new PackageBuildAction(pipelines[0].packageBuilds[0]),
+        new RequestTestSuitesAction(pipelines[0], pipelines[0].packageBuilds[0])
+      ])
     );
 
-  @Effect() selectPipeLineEffect$ = this.action$
-    .ofType(SELECT_PIPELINE)
+  @Effect() pipeLineEffect$ = this.action$
+    .ofType(PIPELINE)
     .map(toPayload)
-    .withLatestFrom(this.store.select(store => store.pipelineReducer.pipelines))
-    .switchMap(([pipelineKey, pipelines]) => {
-      let pipeline = pipelines.filter(_pipeline => _pipeline.key == pipelineKey)[0];
-      return Observable.of(new PipelineAction(pipeline))
+    .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPackageBuild))
+    .switchMap(([pipeline, packageBuild]) => {
+      if (pipeline && packageBuild) {
+        return Observable.of(new RequestTestSuitesAction(pipeline, packageBuild));
+      } else {
+        return Observable.empty();
+      }
     });
 
-  @Effect() selectPackageBuildEffect$ = this.action$
-    .ofType(SELECT_PACKAGE_BUILD)
+  @Effect() packageBuildEffect$ = this.action$
+    .ofType(PACKAGE_BUILD)
     .map(toPayload)
     .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
-    .switchMap(([packageBuildKey, pipeline]) => {
-      let packageBuild = pipeline.packageBuilds.filter(_packageBuild => _packageBuild.key == packageBuildKey)[0];
-      return [
-        new PackageBuildAction(packageBuild),
-        new RequestTestSuitesAction(pipeline, packageBuild)
-      ];
+    .switchMap(([packageBuild, pipeline]) => {
+      if (pipeline && packageBuild) {
+        return Observable.of(new RequestTestSuitesAction(pipeline, packageBuild));
+      } else {
+        return Observable.empty();
+      }
     });
 
   @Effect() requestTestSuitesEffect$ = this.action$

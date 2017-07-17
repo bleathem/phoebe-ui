@@ -19,7 +19,7 @@ describe('TestCaseStatusByTestSuiteComponent', () => {
       declarations: [ TestCaseStatusByTestSuiteComponent, CollapsiblePanelComponent ],
       imports: [ BrowserAnimationsModule, ChartsModule, DataMockModule, PipelineModule, StoreModule.provideStore({
         pipelineReducer
-      }), ]
+      }) ]
     })
     .compileComponents();
   }));
