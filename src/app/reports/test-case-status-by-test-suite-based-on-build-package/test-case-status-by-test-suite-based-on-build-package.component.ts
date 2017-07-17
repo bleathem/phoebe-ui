@@ -14,8 +14,9 @@ export class TestCaseStatusByTestSuiteBasedOnBuildPackageComponent implements On
   @Input() testSuites: Observable<TestSuite[]>;
 
   constructor(private store: Store<AppStore>) {
-    this.testSuites = store.select(store => store.pipelineReducer.testSuites)
-    .filter(state => !!state)
+    this.testSuites = store
+    .select(store => store.pipelineReducer.selectedPackageBuild && store.pipelineReducer.selectedPackageBuild.testSuites)
+    .filter(state => !!state);
   }
 
   ngOnInit() { }

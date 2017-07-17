@@ -8,6 +8,7 @@ import { Notification } from '../../notifications/notification.model'
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -121,17 +122,6 @@ export class PipelineXhrService {
     .catch(error => {throw new Error(`Error retrieving Package Builds from ${this.elasticUrl}`)});
   }
 
-  getTestSuites(pipeline: Pipeline, packageBuild: PackageBuild) {
-    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
-    let query = JSON.parse(JSON.stringify(this.testCaseQuery));
-    query.query.bool.must[0].match['ci_job.name'] = pipeline.key;
-    query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
-    return this.http.post(url, JSON.stringify(query))
-    .map(this.extractTestSuite.bind(this))
-    .catch(this.handleError)
-    .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
-  }
-
   getAllPipelinesAndPackageBuilds() {
     let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     let query = JSON.parse(JSON.stringify(this.queryAllPipelinesAndPackageBuilds));
@@ -139,6 +129,28 @@ export class PipelineXhrService {
     .map(this.extractPipelineAndPackageBuild)
     .catch(this.handleError)
     .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
+  }
+
+  getTestSuitesByPipelineAndPackageBuild(pipeline: Pipeline, packageBuild: PackageBuild) {
+    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    let query = JSON.parse(JSON.stringify(this.testCaseQuery));
+    query.query.bool.must[0].match['ci_job.name'] = pipeline.key;
+    query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
+    return this.http.post(url, JSON.stringify(query))
+    .map(this.extractTestSuites.bind(this))
+    .catch(this.handleError)
+    .catch(error => {throw new Error(`Error retrieving Test Cases from ${this.elasticUrl}`)});
+  }
+
+  getTestSuitesByPipeline(pipeline: Pipeline) {
+    let requests = [];
+    pipeline.packageBuilds.forEach(packageBuild => {
+      requests.push(this.getTestSuitesByPipelineAndPackageBuild(pipeline, packageBuild));
+    });
+    return Observable.forkJoin(requests)
+    .mergeMap(responses => responses.map(this.extractTestSuites.bind(this)))
+    .catch(this.handleError)
+    .catch(error => {throw new Error(`Error retrieving all Pipeline Test Cases from ${this.elasticUrl}`)});
   }
 
   private extractPipeline(res: Response) {
@@ -173,7 +185,7 @@ export class PipelineXhrService {
     });
   }
 
-  private extractTestSuite(res: Response): TestSuite[] {
+  private extractTestSuites(res: Response): TestSuite[] {
     let body = res.json();
     // console.log(JSON.stringify(body, null, 2));
     let self = this;
@@ -186,9 +198,9 @@ export class PipelineXhrService {
       });
       return testSuite;
     });
-    for (let i = testSuites.length; i < 6; i++) {
-      testSuites.push(this.randomDataService.getRandomTestSuite(`Random Test Suite #${i+1}`));
-    }
+    // for (let i = testSuites.length; i < 6; i++) {
+    //   testSuites.push(this.randomDataService.getRandomTestSuite(`Random Test Suite #${i+1}`));
+    // }
     return testSuites;
   }
 

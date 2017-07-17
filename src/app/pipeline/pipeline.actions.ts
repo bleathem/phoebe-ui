@@ -84,8 +84,19 @@ export class RequestTestSuitesAction implements Action {
 
 export class TestSuitesAction implements Action {
   readonly type = TEST_SUITES;
+  public payload: {
+    pipeline: Pipeline
+    packageBuild: PackageBuild
+    testSuites: TestSuite[]
+  };
 
-  constructor(public payload: TestSuite[]) { }
+  constructor(public pipeline: Pipeline, public packageBuild: PackageBuild, public testSuites: TestSuite[]) {
+    this.payload = {
+      pipeline: pipeline,
+      packageBuild: packageBuild,
+      testSuites: testSuites
+    }
+  }
 }
 
 export type Actions

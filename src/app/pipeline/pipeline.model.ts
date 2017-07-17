@@ -8,9 +8,11 @@ export class Pipeline {
 }
 
 export class PackageBuild {
+  public testSuites: TestSuite[];
   constructor(public key: number, public id: number) {
     this.id = id;
     this.key = key;
+    this.testSuites = [];
   }
 }
 

@@ -73,8 +73,8 @@ export class PipelineEffects {
     .ofType(REQUEST_TEST_SUITES)
     .map(toPayload)
     .switchMap(payload =>
-      this.pipelineXhrService.getTestSuites(payload.pipeline, payload.packageBuild)
-      .switchMap(testSuites => Observable.of(new TestSuitesAction(testSuites)))
+      this.pipelineXhrService.getTestSuitesByPipelineAndPackageBuild(payload.pipeline, payload.packageBuild)
+      .switchMap(testSuites => Observable.of(new TestSuitesAction(payload.pipeline, payload.packageBuild, testSuites)))
     );
 
   @Effect() testSuitesEffect$ = this.action$
