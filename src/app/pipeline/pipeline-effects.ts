@@ -40,8 +40,7 @@ export class PipelineEffects {
       .switchMap(pipelines => [
         new PipelinesAction(pipelines),
         new PipelineAction(pipelines[0]),
-        new PackageBuildAction(pipelines[0].packageBuilds[0]),
-        new RequestTestSuitesAction(pipelines[0], pipelines[0].packageBuilds[0])
+        new PackageBuildAction(pipelines[0].packageBuilds[0])
       ])
     );
 
@@ -50,8 +49,8 @@ export class PipelineEffects {
     .map(toPayload)
     .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPackageBuild))
     .switchMap(([pipeline, packageBuild]) => {
-      if (pipeline && packageBuild) {
-        return Observable.of(new RequestTestSuitesAction(pipeline, packageBuild));
+      if (pipeline) {
+        return Observable.of(new RequestTestSuitesAction(pipeline));
       } else {
         return Observable.empty();
       }
@@ -62,7 +61,7 @@ export class PipelineEffects {
     .map(toPayload)
     .withLatestFrom(this.store.select(store => store.pipelineReducer.selectedPipeline))
     .switchMap(([packageBuild, pipeline]) => {
-      if (pipeline && packageBuild) {
+      if (pipeline && packageBuild && !packageBuild.testSuites) {
         return Observable.of(new RequestTestSuitesAction(pipeline, packageBuild));
       } else {
         return Observable.empty();
@@ -72,10 +71,10 @@ export class PipelineEffects {
   @Effect() requestTestSuitesEffect$ = this.action$
     .ofType(REQUEST_TEST_SUITES)
     .map(toPayload)
-    .switchMap(payload =>
-      this.pipelineXhrService.getTestSuitesByPipelineAndPackageBuild(payload.pipeline, payload.packageBuild)
-      .switchMap(testSuites => Observable.of(new TestSuitesAction(payload.pipeline, payload.packageBuild, testSuites)))
-    );
+    .switchMap(payload => {
+      return this.pipelineXhrService.getTestSuitesByPipeline(payload.pipeline)
+    })
+    .mergeMap(result2 => result2.mergeMap(result => Observable.of(new TestSuitesAction(result.pipeline, result.packageBuild, result.testSuites))));
 
   @Effect() testSuitesEffect$ = this.action$
     .ofType(TEST_SUITES)

@@ -74,7 +74,7 @@ export class RequestTestSuitesAction implements Action {
     packageBuild: PackageBuild
   };
 
-  constructor(public pipeline: Pipeline, public packageBuild: PackageBuild) {
+  constructor(public pipeline: Pipeline, public packageBuild: PackageBuild = null) {
     this.payload = {
       pipeline: pipeline,
       packageBuild: packageBuild

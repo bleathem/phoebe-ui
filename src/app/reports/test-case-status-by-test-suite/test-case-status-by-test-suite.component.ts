@@ -19,8 +19,7 @@ export class TestCaseStatusByTestSuiteComponent implements OnInit {
 
   constructor(private store: Store<AppStore>) {
     this.testSuites = store
-    .select(store => store.pipelineReducer.selectedPackageBuild && store.pipelineReducer.selectedPackageBuild.testSuites)
-    .filter(state => !!state);
+    .select(store => store.pipelineReducer.selectedPackageBuild && store.pipelineReducer.selectedPackageBuild.testSuites);
   }
 
   ngOnInit() {

@@ -23,9 +23,10 @@ export function pipelineReducer(state = initialState, action: Actions): Pipeline
         selectedPackageBuild: null,
       };
     case PACKAGE_BUILDS:
-      let updatedPipeline = Object.assign({}, action.payload.pipeline, { packageBuilds: action.payload.packageBuilds });
+      let pipeline = state.pipelines.find(p => p.key === action.payload.pipeline.key);
+      pipeline = Object.assign({}, pipeline, { packageBuilds: action.payload.packageBuilds });
 			return {
-        pipelines: state.pipelines.map(_pipeline => _pipeline.id === updatedPipeline.id ? updatedPipeline : _pipeline),
+        pipelines: state.pipelines.map(p => p.key === pipeline.key ? pipeline : p),
         selectedPipeline: state.selectedPipeline,
         selectedPackageBuild: null,
       };
@@ -42,13 +43,15 @@ export function pipelineReducer(state = initialState, action: Actions): Pipeline
         selectedPackageBuild: action.payload,
       }
     case TEST_SUITES:
-      let updatedPackageBuild = Object.assign({}, action.payload.packageBuild, { testSuites: action.payload.testSuites });
-      let updatedPackageBuilds = action.payload.pipeline.packageBuilds.map(_packageBuild => _packageBuild.key === updatedPackageBuild.key ? updatedPackageBuild : _packageBuild);
-      updatedPipeline = Object.assign({}, action.payload.pipeline, { packageBuilds: updatedPackageBuilds });
+      pipeline = state.pipelines.find(p => p.key === action.payload.pipeline.key);
+      let packageBuild = pipeline.packageBuilds.find(pb => pb.key === action.payload.packageBuild.key);
+      packageBuild = Object.assign({}, packageBuild, { testSuites: action.payload.testSuites });
+      let updatedPackageBuilds = pipeline.packageBuilds.map(pb => pb.key === packageBuild.key ? packageBuild : pb);
+      pipeline = Object.assign({}, pipeline, { packageBuilds: updatedPackageBuilds });
       return {
-        pipelines: state.pipelines.map(_pipeline => _pipeline.id === updatedPipeline.id ? updatedPipeline : _pipeline),
-        selectedPipeline: state.selectedPipeline.key === updatedPipeline.key ? updatedPipeline : state.selectedPipeline,
-        selectedPackageBuild: state.selectedPackageBuild.key === updatedPackageBuild.key ? updatedPackageBuild: state.selectedPackageBuild
+        pipelines: state.pipelines.map(p => p.key === pipeline.key ? pipeline : p),
+        selectedPipeline: state.selectedPipeline.key === pipeline.key ? pipeline : state.selectedPipeline,
+        selectedPackageBuild: state.selectedPackageBuild && state.selectedPackageBuild.key === packageBuild.key ? packageBuild: state.selectedPackageBuild
       }
 		default:
 			return state;

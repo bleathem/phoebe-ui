@@ -19,9 +19,10 @@ export class PieChartComponent implements OnInit, OnChanges {
     var pieData = {
       type : 'pie',
       colors: {
-        Failed: patternfly.pfPaletteColors.red,
-        Skipped: patternfly.pfPaletteColors.blue,
+        Failure: patternfly.pfPaletteColors.red,
+        Skipped: patternfly.pfPaletteColors.purple,
         Passed: patternfly.pfPaletteColors.orange,
+        Successful: patternfly.pfPaletteColors.blue,
         Error: patternfly.pfPaletteColors.green
       },
       columns: null,

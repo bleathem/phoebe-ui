@@ -5,6 +5,7 @@ import { pipelineReducer } from '../pipeline.reducer'
 import { FormsModule } from '@angular/forms';
 
 import { PipelineSelectionComponent } from './pipeline-selection.component';
+import { KeySortPipe } from '../key-sort.pipe';
 
 describe('PipelineSelectionComponent', () => {
   let component: PipelineSelectionComponent;
@@ -13,7 +14,7 @@ describe('PipelineSelectionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, PipelineXhrModule, StoreModule.provideStore({pipelineReducer}) ],
-      declarations: [ PipelineSelectionComponent ]
+      declarations: [ PipelineSelectionComponent, KeySortPipe ]
     })
     .compileComponents();
   }));

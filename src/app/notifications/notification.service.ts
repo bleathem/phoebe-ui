@@ -26,7 +26,7 @@ export class NotificationService {
   showNotification(notification: Notification) {
     const factory = this.factoryResolver.resolveComponentFactory(NotificationComponent)
     const component: ComponentRef<NotificationComponent> = factory.create(this.rootViewContainer.parentInjector)
-    console.log(notification);
+    // console.log(notification);
     component.instance.message = notification.message;
     component.instance.severity = notification.severity;
     component.instance.lifetime = notification.lifetime;

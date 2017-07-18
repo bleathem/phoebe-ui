@@ -26,7 +26,7 @@
             [compareWith]="keyCompare"
             (ngModelChange)="selectPackageBuild($event)">
       <option disabled selected hidden value="null">&lt;Package Build&gt;</option>
-      <option *ngFor="let packageBuild of packageBuilds | async" [ngValue]="packageBuild">
+      <option *ngFor="let packageBuild of packageBuilds | async | keySort" [ngValue]="packageBuild">
         {{ packageBuild.key }}
       </option>
     </select>

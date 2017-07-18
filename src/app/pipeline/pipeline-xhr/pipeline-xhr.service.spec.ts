@@ -130,7 +130,7 @@ describe('PipelineXhrService', () => {
 
     it('should return data', () => {
       // Initiate the request
-      service.getTestSuites(pipeline, packageBuild).subscribe(testSuites => {
+      service.getTestSuitesByPipelineAndPackageBuild(pipeline, packageBuild).subscribe(testSuites => {
         testSuites = testSuites.filter(suite => !suite['random']);
         expect(testSuites.length).toEqual(mockTestData.aggregations.testsuite_name.buckets.length);
       }, error => {
