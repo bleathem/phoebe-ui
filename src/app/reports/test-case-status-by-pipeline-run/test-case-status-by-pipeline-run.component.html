@@ -1,7 +1,7 @@
 
 <h1 id="report2">Report #2: Test Case Status by Das Host based on Pipeline Run</h1>
 <p>This report is intended to provide a comprehensive understanding about Das Host quality.</p>
-<charts-line-chart [data]="chartData | async | testSuitesToLineChart"></charts-line-chart>
+<charts-line-chart [data]="chartData | async | testSuitesToLineChart" (dataLoaded)="onDataLoaded($event)"></charts-line-chart>
 <div class="toggle-wrap">
   <button class="toggle-details"
           [ngClass]="hideDetails ? '' : 'active'"
