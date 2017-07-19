@@ -17,8 +17,8 @@ import 'rxjs/add/observable/zip';
   styleUrls: ['./test-case-status-by-pipeline-run.component.less']
 })
 export class TestCaseStatusByPipelineRunComponent implements OnInit {
-  @Input() hideDetails: boolean = true;
-  @Input() chartData: Observable<PackageBuild[]>;
+  @Input() public hideDetails: boolean = true;
+  @Input() public chartData: Observable<PackageBuild[]>;
   dataLoaded: Subject<any> = new Subject();
 
   constructor(private testCaseStatusService: TestCaseStatusService, private store: Store<AppStore>) {
@@ -35,7 +35,7 @@ export class TestCaseStatusByPipelineRunComponent implements OnInit {
     );
   }
 
-  onDataLoaded() {
+  public onDataLoaded(event) {
     setTimeout(() => {
       this.dataLoaded.next();
     })
