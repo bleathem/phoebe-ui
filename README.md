@@ -2,6 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.1.
 
+## Run on OpenShift:
+oc new-app centos/nodejs-6-centos7~https://github.com/bleathem/phoebe-ui.git
+
 ## Environment
 
 Both the CLI and generated project have dependencies that require Node 6.9.0 or higher, together with NPM 3 or higher.
