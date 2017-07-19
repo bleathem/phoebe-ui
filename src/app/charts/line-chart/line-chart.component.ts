@@ -14,10 +14,10 @@ export class LineChartComponent implements OnInit, OnChanges {
   constructor(private el: ElementRef) { }
 
   ngOnInit() {
-    var lineChartDataColumns = [];
+    const lineChartDataColumns = [];
 
-    var c3ChartDefaults = patternfly.c3ChartDefaults();
-    var lineChartConfig = c3ChartDefaults.getDefaultLineConfig();
+    const c3ChartDefaults = patternfly.c3ChartDefaults();
+    const lineChartConfig = c3ChartDefaults.getDefaultLineConfig();
     // lineChartConfig.bindto =  this.el.nativeElement.querySelector('.line-chart-pf');
     lineChartConfig.bindto =  this.el.nativeElement.firstChild;
 

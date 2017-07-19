@@ -60,7 +60,7 @@ describe('PipelineXhrService', () => {
 
   describe('PackageBuilds', () => {
     let service: PipelineXhrService;
-    let pipeline = new Pipeline('Interop-RHSatellite_6.3-b3a8a-stable-runtest', 0);
+    const pipeline = new Pipeline('Interop-RHSatellite_6.3-b3a8a-stable-runtest', 0);
 
     beforeEach(inject([PipelineXhrService, MockBackend], (_service: PipelineXhrService, mockBackend: MockBackend) => {
       // Mock the response from the http backend
@@ -113,8 +113,8 @@ describe('PipelineXhrService', () => {
 
   describe('TestCases', () => {
     let service: PipelineXhrService;
-    let pipeline = new Pipeline('Interop-RHSatellite_6.3-b3a8a-stable-runtest', 0);
-    let packageBuild = new PackageBuild(166, 0);
+    const pipeline = new Pipeline('Interop-RHSatellite_6.3-b3a8a-stable-runtest', 0);
+    const packageBuild = new PackageBuild(166, 0);
 
     beforeEach(inject([PipelineXhrService, MockBackend], (_service: PipelineXhrService, mockBackend: MockBackend) => {
       // Mock the response from the http backend

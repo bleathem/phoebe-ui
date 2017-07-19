@@ -18,58 +18,58 @@ export class PipelineXhrService {
   private elasticUrl = 'http://elasticsearch.perf.lab.eng.bos.redhat.com/';
   private path = '<jenkins-staging2-logs-{now/d-2d}>,<jenkins-staging2-logs-{now/d-1d}>,<jenkins-staging2-logs-{now/d}>,';
   private pipelineQuery = {
-    "query": {
-      "prefix": {
-        "ci_job.name":  "Interop"
+    'query': {
+      'prefix': {
+        'ci_job.name':  'Interop'
       }
     },
-    "size": 0,
-    "aggs": {
-      "job_list": {
-        "terms": {
-          "field": "ci_job.name",
-          "size": 0
+    'size': 0,
+    'aggs': {
+      'job_list': {
+        'terms': {
+          'field': 'ci_job.name',
+          'size': 0
         }
       }
     }
   };
   private packageQuery = {
-    "query": {
-      "match": {
-        "ci_job.name": null
+    'query': {
+      'match': {
+        'ci_job.name': null
       }
     },
-    "size": 0,
-    "aggs": {
-      "buildID_list": {
-        "terms": {
-          "field": "ci_job.number",
-          "size": 0
+    'size': 0,
+    'aggs': {
+      'buildID_list': {
+        'terms': {
+          'field': 'ci_job.number',
+          'size': 0
         }
       }
     }
   };
   private testCaseQuery = {
-    "query": {
-      "bool": {
-        "must": [
-          { "match": { "ci_job.name":  null }},
-          { "match": { "ci_job.number": null }}
+    'query': {
+      'bool': {
+        'must': [
+          { 'match': { 'ci_job.name':  null }},
+          { 'match': { 'ci_job.number': null }}
         ]
       }
     },
-    "size": 0,
-    "aggs": {
-      "testsuite_name":{
-        "terms":{
-          "field": "testcase.testsuite.name",
-          "size": 0
+    'size': 0,
+    'aggs': {
+      'testsuite_name': {
+        'terms': {
+          'field': 'testcase.testsuite.name',
+          'size': 0
         },
-        "aggs": {
-          "testcase_state": {
-            "terms": {
-              "field": "testcase.status",
-              "size": 0
+        'aggs': {
+          'testcase_state': {
+            'terms': {
+              'field': 'testcase.status',
+              'size': 0
             }
           }
         }
@@ -78,22 +78,22 @@ export class PipelineXhrService {
   }
 
   private queryAllPipelinesAndPackageBuilds = {
-    "query": {
-      "prefix": {
-        "ci_job.name": "Interop"
+    'query': {
+      'prefix': {
+        'ci_job.name': 'Interop'
       }
     },
-    "size": 0,
-    "aggs": {
-      "job_name": {
-        "terms": {
-          "field": "ci_job.name",
-          "size": 0
+    'size': 0,
+    'aggs': {
+      'job_name': {
+        'terms': {
+          'field': 'ci_job.name',
+          'size': 0
         },
-        "aggs": {
-          "build_agg": {
-            "terms": {
-              "field": "ci_job.number"
+        'aggs': {
+          'build_agg': {
+            'terms': {
+              'field': 'ci_job.number'
             }
           }
         }
@@ -105,7 +105,7 @@ export class PipelineXhrService {
   constructor (private http: Http, private randomDataService: RandomDataService) { }
 
   getPipelines(): Observable<Pipeline[]> {
-    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    const url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
     return this.http.post(url, JSON.stringify(this.pipelineQuery))
     .map(this.extractPipeline)
     .catch(this.handleError)
@@ -113,8 +113,8 @@ export class PipelineXhrService {
   }
 
   getPackageBuilds(pipeline: Pipeline): Observable<PackageBuild[]> {
-    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
-    let query = JSON.parse(JSON.stringify(this.packageQuery));
+    const url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    const query = JSON.parse(JSON.stringify(this.packageQuery));
     query.query.match['ci_job.name'] = pipeline.key;
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractPackageBuild)
@@ -123,8 +123,8 @@ export class PipelineXhrService {
   }
 
   getAllPipelinesAndPackageBuilds() {
-    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
-    let query = JSON.parse(JSON.stringify(this.queryAllPipelinesAndPackageBuilds));
+    const url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    const query = JSON.parse(JSON.stringify(this.queryAllPipelinesAndPackageBuilds));
     return this.http.post(url, JSON.stringify(query))
     .map(this.extractPipelineAndPackageBuild)
     .catch(this.handleError)
@@ -132,8 +132,8 @@ export class PipelineXhrService {
   }
 
   getTestSuitesByPipelineAndPackageBuild(pipeline: Pipeline, packageBuild: PackageBuild): Observable<TestSuite[]> {
-    let url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
-    let query = JSON.parse(JSON.stringify(this.testCaseQuery));
+    const url = this.elasticUrl + encodeURIComponent(this.path) + '/_search';
+    const query = JSON.parse(JSON.stringify(this.testCaseQuery));
     query.query.bool.must[0].match['ci_job.name'] = pipeline.key;
     query.query.bool.must[1].match['ci_job.number'] = packageBuild.key;
     return this.http.post(url, JSON.stringify(query))
@@ -143,7 +143,7 @@ export class PipelineXhrService {
   }
 
   getTestSuitesByPipeline(pipeline: Pipeline) {
-    let requests = pipeline.packageBuilds.map(packageBuild => {
+    const requests = pipeline.packageBuilds.map(packageBuild => {
         return this.getTestSuitesByPipelineAndPackageBuild(pipeline, packageBuild)
         .map(testSuites => {
           return {
@@ -157,7 +157,7 @@ export class PipelineXhrService {
   }
 
   private extractPipeline(res: Response) {
-    let body = res.json();
+    const body = res.json();
     // console.log(JSON.stringify(body, null, 2));
     return body.aggregations.job_list.buckets
     .map(bucket => {
@@ -166,7 +166,7 @@ export class PipelineXhrService {
   }
 
   private extractPackageBuild(res: Response) {
-    let body = res.json();
+    const body = res.json();
     // console.log(JSON.stringify(body, null, 2));
     return body.aggregations.buildID_list.buckets
     .map(bucket => {
@@ -175,28 +175,28 @@ export class PipelineXhrService {
   }
 
   private extractPipelineAndPackageBuild(res: Response) {
-    let body = res.json();
+    const body = res.json();
     // console.log(JSON.stringify(body, null, 2));
     return body.aggregations.job_name.buckets
     .map(bucket => {
-      let pipeline = new Pipeline(bucket.key, bucket.doc_count);
+      const pipeline = new Pipeline(bucket.key, bucket.doc_count);
       pipeline.packageBuilds = bucket.build_agg.buckets
-      .map(bucket => {
-        return new PackageBuild(bucket.key, bucket.doc_count);
+      .map(bucket2 => {
+        return new PackageBuild(bucket2.key, bucket2.doc_count);
       });
       return pipeline;
     });
   }
 
   private extractTestSuites(res: Response): TestSuite[] {
-    let body = res.json();
+    const body = res.json();
     // console.log(JSON.stringify(body, null, 2));
-    let self = this;
-    let testSuites = body.aggregations.testsuite_name.buckets
+    const self = this;
+    const testSuites = body.aggregations.testsuite_name.buckets
     .map(bucket => {
-      let testSuite = new TestSuite(bucket.key);
-      bucket.testcase_state.buckets.forEach(bucket => {
-        let testCase = new TestCase(self.capitalizeFirstLetter(bucket.key), bucket.doc_count);
+      const testSuite = new TestSuite(bucket.key);
+      bucket.testcase_state.buckets.forEach(bucket2 => {
+        const testCase = new TestCase(self.capitalizeFirstLetter(bucket2.key), bucket2.doc_count);
         testSuite.testCases.push(testCase);
       });
       return testSuite;

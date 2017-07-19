@@ -19,22 +19,22 @@ import {
 
 describe('pipelineReducer', () => {
   it('should handle initialState', () => {
-    let initialState = pipelineReducer.call({}, undefined, {type: null});
+    const initialState = pipelineReducer.call({}, undefined, {type: null});
     expect(initialState.pipelines.length).toEqual(0);
   });
 
   it('should load pipelines', () => {
-    let pipelines = [ new Pipeline('asd', 123) ];
-    let state = pipelineReducer(undefined, new PipelinesAction(pipelines));
+    const pipelines = [ new Pipeline('asd', 123) ];
+    const state = pipelineReducer(undefined, new PipelinesAction(pipelines));
     expect(state.pipelines.length).toEqual(pipelines.length);
   });
 
   it('should load packageBuilds', () => {
-    let pipeline = new Pipeline('asd', 123);
-    let pipelines = [ Object.freeze(Object.assign({}, pipeline)) ];
-    let packageBuilds = [ new PackageBuild(345, 234) ];
-    let _initialState = Object.assign({}, initialState, {pipelines: pipelines});
-    let state = pipelineReducer(_initialState, new PackageBuildsAction(pipeline, packageBuilds));
+    const pipeline = new Pipeline('asd', 123);
+    const pipelines = [ Object.freeze(Object.assign({}, pipeline)) ];
+    const packageBuilds = [ new PackageBuild(345, 234) ];
+    const _initialState = Object.assign({}, initialState, {pipelines: pipelines});
+    const state = pipelineReducer(_initialState, new PackageBuildsAction(pipeline, packageBuilds));
     expect(state.pipelines.length).toEqual(pipelines.length);
     expect(state.pipelines[0].key).toEqual(pipelines[0].key);
     expect(state.pipelines[0].packageBuilds).toEqual(packageBuilds);

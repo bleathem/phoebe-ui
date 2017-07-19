@@ -14,16 +14,16 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    var c3ChartDefaults = patternfly.c3ChartDefaults();
+    const c3ChartDefaults = patternfly.c3ChartDefaults();
 
-    var groupedcCategories = ['2013', '2014', '2015'];
-    var groupedColumnsData = [
+    const groupedcCategories = ['2013', '2014', '2015'];
+    const groupedColumnsData = [
       ['Passed', 0, 0, 0],
       ['Failed', 0, 0, 0],
       ['Skipped', 0, 0, 0],
       ['Error', 0, 0, 0]
     ];
-    var groupedColors = {
+    const groupedColors = {
       pattern: [
         patternfly.pfPaletteColors.red,
         patternfly.pfPaletteColors.blue,
@@ -32,7 +32,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       ]
     };
 
-    var groupedVerticalBarChartConfig = patternfly.c3ChartDefaults().getDefaultGroupedBarConfig();
+    const groupedVerticalBarChartConfig = patternfly.c3ChartDefaults().getDefaultGroupedBarConfig();
     groupedVerticalBarChartConfig.bindto = this.el.nativeElement.firstChild;
     groupedVerticalBarChartConfig.axis = {
       x: {

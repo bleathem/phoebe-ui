@@ -15,9 +15,9 @@ export class RandomDataService {
 
   constructor() { }
 
-  public getRandomTestSuite(key): TestSuite {
-    let suite = new TestSuite(key);
-    let seeds: [string, number, number][] =  [
+  public getRandomTestSuite(_key): TestSuite {
+    const suite = new TestSuite(_key);
+    const seeds: [string, number, number][] =  [
       ['Passed', 30, 80],
       ['Failed', 5, 30],
       ['Skipped', 5, 10],
@@ -33,7 +33,7 @@ export class RandomDataService {
   }
 
   private getRandomInt(min, max) {
-    //The maximum is exclusive and the minimum is inclusive
+    // The maximum is exclusive and the minimum is inclusive
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;

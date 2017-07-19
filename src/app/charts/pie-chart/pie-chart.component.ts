@@ -14,9 +14,9 @@ export class PieChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    var c3ChartDefaults = patternfly.c3ChartDefaults();
+    const c3ChartDefaults = patternfly.c3ChartDefaults();
 
-    var pieData = {
+    const pieData = {
       type : 'pie',
       colors: {
         Successful: patternfly.pfPaletteColors.blue,
@@ -28,13 +28,13 @@ export class PieChartComponent implements OnInit, OnChanges {
         'Not started': patternfly.pfPaletteColors.purple100,
       },
       columns: null,
-      onclick: function (d, i) { console.log("onclick", d, i); },
-      onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-      onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      onclick: function (d, i) { console.log('onclick', d, i); },
+      onmouseover: function (d, i) { console.log('onmouseover', d, i); },
+      onmouseout: function (d, i) { console.log('onmouseout', d, i); }
     };
 
     // Pie chart
-    let pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
+    const pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
     pieChartConfig.bindto = this.el.nativeElement.firstChild;
     pieChartConfig.data = pieData;
     pieChartConfig.legend = {

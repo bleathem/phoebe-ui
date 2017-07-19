@@ -4,7 +4,7 @@ interface HasKey {
   key: string|number;
 };
 
-@Pipe({ name: "keySort" })
+@Pipe({ name: 'keySort' })
 export class KeySortPipe  implements PipeTransform {
   transform(array: HasKey[]): HasKey[] {
     if (!array) {

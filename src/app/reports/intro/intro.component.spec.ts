@@ -28,7 +28,7 @@ describe('IntroComponent', () => {
   });
 
   it('should render title in a h3 tag', () => {
-    const fixture = TestBed.createComponent(IntroComponent);
+    fixture = TestBed.createComponent(IntroComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h3').textContent).toContain('reports can be accessed');

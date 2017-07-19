@@ -17,10 +17,12 @@ export class PipelineSelectionComponent implements OnInit {
   @Input() selectedPackageBuild: Observable<PackageBuild>;
 
   constructor(private store: Store<AppStore>) {
-    this.pipelines = this.store.select(store => store.pipelineReducer.pipelines);
-    this.packageBuilds = this.store.select(store => store.pipelineReducer.selectedPipeline && store.pipelineReducer.selectedPipeline.packageBuilds);
-    this.selectedPipeline = store.select(store => store.pipelineReducer.selectedPipeline);
-    this.selectedPackageBuild = store.select(store => store.pipelineReducer.selectedPackageBuild);
+    this.pipelines = this.store.select(state => state.pipelineReducer.pipelines);
+    this.packageBuilds = this.store.select(
+      state => state.pipelineReducer.selectedPipeline && state.pipelineReducer.selectedPipeline.packageBuilds
+    );
+    this.selectedPipeline = store.select(state => state.pipelineReducer.selectedPipeline);
+    this.selectedPackageBuild = store.select(state => state.pipelineReducer.selectedPackageBuild);
   }
 
   ngOnInit() {

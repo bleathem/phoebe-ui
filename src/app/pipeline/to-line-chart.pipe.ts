@@ -7,8 +7,8 @@ export class TestSuitesToLineChartPipe implements PipeTransform {
     if (!packageBuilds) {
       return [];
     }
-    let x: (string | number)[] = ['x'];
-    let lines = {};
+    const x: (string | number)[] = ['x'];
+    const lines = {};
     packageBuilds
     .filter(packageBuild => packageBuild.testSuites && packageBuild.testSuites.length)
     .map(packageBuild => {
@@ -20,7 +20,7 @@ export class TestSuitesToLineChartPipe implements PipeTransform {
         });
       });
     });
-    let chartData = [];
+    const chartData = [];
     if (!Object.keys(lines).length) {
       return [];
     }

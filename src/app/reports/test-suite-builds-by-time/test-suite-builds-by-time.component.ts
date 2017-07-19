@@ -7,7 +7,7 @@ import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
   styleUrls: ['./test-suite-builds-by-time.component.less']
 })
 export class TestSuiteBuildsByTimeComponent implements OnInit {
-  @Input() hideDetails: boolean = true;
+  @Input() hideDetails = true;
   @Output() chartData: (string | number)[][];
 
   constructor(private testCaseStatusService: TestCaseStatusService) { }

@@ -10,12 +10,12 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./test-case-status-by-test-suite-based-on-build-package.component.less']
 })
 export class TestCaseStatusByTestSuiteBasedOnBuildPackageComponent implements OnInit {
-  @Input() hideDetails: boolean = true;
+  @Input() hideDetails = true;
   @Input() testSuites: Observable<TestSuite[]>;
 
   constructor(private store: Store<AppStore>) {
     this.testSuites = store
-    .select(store => store.pipelineReducer.selectedPackageBuild && store.pipelineReducer.selectedPackageBuild.testSuites);
+    .select(state => state.pipelineReducer.selectedPackageBuild && state.pipelineReducer.selectedPackageBuild.testSuites);
   }
 
   ngOnInit() { }

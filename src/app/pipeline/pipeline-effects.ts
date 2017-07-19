@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { AppStore } from '../app.store';
-import {Effect, Actions, toPayload} from "@ngrx/effects";
+import {Effect, Actions, toPayload} from '@ngrx/effects';
 import {
   REQUEST_PIPELINES,
   PIPELINES,
@@ -19,7 +19,7 @@ import {
 } from './pipeline.actions';
 import { AddNotificationAction } from '../notifications/notification.actions';
 import { Notification } from '../notifications/notification.model';
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {PipelineXhrService} from './pipeline-xhr/pipeline-xhr.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -29,8 +29,6 @@ import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class PipelineEffects {
-
-  constructor(private action$: Actions, private store: Store<AppStore>, private pipelineXhrService: PipelineXhrService) { }
 
   @Effect() requestPipelines$ = this.action$
     .ofType(REQUEST_PIPELINES)
@@ -85,4 +83,7 @@ export class PipelineEffects {
     .switchMap(([testCases, pipeline]) => Observable.of(new AddNotificationAction(
       new Notification(`Test cases loaded for ${pipeline.key}`, 'success', 3)
     )));
+
+  constructor(private action$: Actions, private store: Store<AppStore>, private pipelineXhrService: PipelineXhrService) { }
+
 }

@@ -13,13 +13,13 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['./test-case-status-by-test-suite.component.less']
 })
 export class TestCaseStatusByTestSuiteComponent implements OnInit {
-  @Input() hideDetails: boolean = true;
+  @Input() hideDetails = true;
 
   @Input() testSuites: Observable<TestSuite[]>;
 
   constructor(private store: Store<AppStore>) {
     this.testSuites = store
-    .select(store => store.pipelineReducer.selectedPackageBuild && store.pipelineReducer.selectedPackageBuild.testSuites);
+    .select(state => state.pipelineReducer.selectedPackageBuild && state.pipelineReducer.selectedPackageBuild.testSuites);
   }
 
   ngOnInit() {

@@ -6,9 +6,9 @@ import { Component, Input, ElementRef } from '@angular/core';
   styleUrls: ['./notification.component.less']
 })
 export class NotificationComponent {
-  @Input() public show: boolean = true;
+  @Input() public show = true;
   @Input() public message: string;
-  @Input() public severity: string = 'success';
+  @Input() public severity = 'success';
 
   constructor(private el: ElementRef) {
   }
@@ -30,7 +30,7 @@ export class NotificationComponent {
   }
 
   remove() {
-    this.show=false;
+    this.show = false;
   }
 
 }

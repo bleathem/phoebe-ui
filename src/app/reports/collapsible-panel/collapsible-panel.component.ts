@@ -15,7 +15,7 @@ import { AUTO_STYLE, trigger, state, animate, transition, style } from '@angular
   ],
 })
 export class CollapsiblePanelComponent implements OnChanges {
-  @Input() isCollapsed : boolean = true;
+  @Input() isCollapsed = true;
 
   ngOnChanges() { }
 }

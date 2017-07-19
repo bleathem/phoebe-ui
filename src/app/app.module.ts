@@ -15,8 +15,8 @@ import { NotificationComponent } from './notifications/notification/notification
 
 import { pipelineReducer } from './pipeline/pipeline.reducer'
 import { notificationReducer } from './notifications/notification.reducer'
-import { PipelineEffects } from "./pipeline/pipeline-effects";
-import { NotificationEffects } from "./notifications/notification.effects";
+import { PipelineEffects } from './pipeline/pipeline-effects';
+import { NotificationEffects } from './notifications/notification.effects';
 
 import { AppComponent } from './app.component';
 

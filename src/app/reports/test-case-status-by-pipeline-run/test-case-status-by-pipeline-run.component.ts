@@ -17,13 +17,13 @@ import 'rxjs/add/observable/zip';
   styleUrls: ['./test-case-status-by-pipeline-run.component.less']
 })
 export class TestCaseStatusByPipelineRunComponent implements OnInit {
-  @Input() public hideDetails: boolean = true;
+  @Input() public hideDetails = true;
   @Input() public chartData: Observable<PackageBuild[]>;
   dataLoaded: Subject<any> = new Subject();
 
   constructor(private testCaseStatusService: TestCaseStatusService, private store: Store<AppStore>) {
-    let chartData = store
-    .select(store => store.pipelineReducer.selectedPipeline && store.pipelineReducer.selectedPipeline.packageBuilds)
+    const chartData = store
+    .select(state => state.pipelineReducer.selectedPipeline && state.pipelineReducer.selectedPipeline.packageBuilds)
     .filter(state => !!state)
     .debounceTime(50);
 
