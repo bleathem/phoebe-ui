@@ -26,11 +26,13 @@ export class LineChartComponent implements OnInit, OnChanges {
       type: 'line',
       x: 'x',
       colors: {
-        Failure: patternfly.pfPaletteColors.red,
-        Skipped: patternfly.pfPaletteColors.purple,
-        Passed: patternfly.pfPaletteColors.orange,
         Successful: patternfly.pfPaletteColors.blue,
-        Error: patternfly.pfPaletteColors.green
+        Passed: patternfly.pfPaletteColors.blue200,
+        Failure: patternfly.pfPaletteColors.red,
+        Failed: patternfly.pfPaletteColors.red,
+        Error: patternfly.pfPaletteColors.orange,
+        Skipped: patternfly.pfPaletteColors.purple,
+        'Not started': patternfly.pfPaletteColors.purple100,
       },
     };
     lineChartConfig.data.columns = this.data || [];

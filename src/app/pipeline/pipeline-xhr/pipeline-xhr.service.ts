@@ -143,10 +143,8 @@ export class PipelineXhrService {
   }
 
   getTestSuitesByPipeline(pipeline: Pipeline) {
-    let requests = [];
-    pipeline.packageBuilds.forEach(packageBuild => {
-      requests.push(
-        this.getTestSuitesByPipelineAndPackageBuild(pipeline, packageBuild)
+    let requests = pipeline.packageBuilds.map(packageBuild => {
+        return this.getTestSuitesByPipelineAndPackageBuild(pipeline, packageBuild)
         .map(testSuites => {
           return {
             pipeline: pipeline,
@@ -154,9 +152,8 @@ export class PipelineXhrService {
             testSuites: testSuites
           }
         })
-      );
-    });
-    return Observable.merge(requests);
+      })
+    return Observable.forkJoin(requests);
   }
 
   private extractPipeline(res: Response) {

@@ -7,6 +7,7 @@ import { PackageBuild, TestCase, TestSuite } from '../../pipeline/pipeline.model
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/zip';
 
 
@@ -23,8 +24,10 @@ export class TestCaseStatusByPipelineRunComponent implements OnInit {
   constructor(private testCaseStatusService: TestCaseStatusService, private store: Store<AppStore>) {
     let chartData = store
     .select(store => store.pipelineReducer.selectedPipeline && store.pipelineReducer.selectedPipeline.packageBuilds)
-    .filter(state => !!state);
+    .filter(state => !!state)
+    .debounceTime(50);
 
+    // This zip blocks new data uploads until the previous data load is done
     this.chartData = Observable.zip(
       chartData,
       this.dataLoaded,

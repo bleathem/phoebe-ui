@@ -74,7 +74,9 @@ export class PipelineEffects {
     .switchMap(payload => {
       return this.pipelineXhrService.getTestSuitesByPipeline(payload.pipeline)
     })
-    .mergeMap(result2 => result2.mergeMap(result => Observable.of(new TestSuitesAction(result.pipeline, result.packageBuild, result.testSuites))));
+    .mergeMap(results => results.map(
+      result => new TestSuitesAction(result.pipeline, result.packageBuild, result.testSuites)
+    ));
 
   @Effect() testSuitesEffect$ = this.action$
     .ofType(TEST_SUITES)
