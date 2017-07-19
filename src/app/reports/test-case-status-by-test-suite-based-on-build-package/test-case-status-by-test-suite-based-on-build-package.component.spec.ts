@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChartsModule } from '../../charts/charts.module';
 import { PipelineModule } from '../../pipeline/pipeline.module';
-import { DataMockModule } from '../../data-mock/data-mock.module';
 import { TestCaseStatusByTestSuiteBasedOnBuildPackageComponent } from './test-case-status-by-test-suite-based-on-build-package.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapsiblePanelComponent } from '../collapsible-panel/collapsible-panel.component';
@@ -17,7 +16,7 @@ describe('TestCaseStatusByTestSuiteBasedOnBuildPackageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TestCaseStatusByTestSuiteBasedOnBuildPackageComponent, CollapsiblePanelComponent ],
-      imports: [ PipelineModule, BrowserAnimationsModule, ChartsModule, DataMockModule, StoreModule.provideStore({
+      imports: [ PipelineModule, BrowserAnimationsModule, ChartsModule, StoreModule.provideStore({
         pipelineReducer
       }) ]
     })

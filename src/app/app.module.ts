@@ -5,7 +5,6 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { NotificationsModule } from './notifications/notifications.module';
-import { DataMockModule } from './data-mock/data-mock.module';
 import { PipelineModule } from './pipeline/pipeline.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
 import { ReportsModule } from './reports/reports.module';
@@ -31,7 +30,6 @@ import { AppErrorHandler } from './error.handler';
     ReportsModule,
     PipelineModule,
     PipelineXhrModule,
-    DataMockModule,
     NotificationsModule,
     StoreModule.provideStore({
       pipelineReducer,

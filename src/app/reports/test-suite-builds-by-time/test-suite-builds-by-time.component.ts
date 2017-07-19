@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit } from '@angular/core';
-import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
+import { RandomDataService } from '../../pipeline/pipeline-xhr/random-data.service';
+import { Observable } from 'rxjs/Observable';
+import { Pipeline, PackageBuild, TestSuite, TestCase } from '../../pipeline/pipeline.model';
 
 @Component({
   selector: 'app-test-suite-builds-by-time',
@@ -8,11 +10,27 @@ import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
 })
 export class TestSuiteBuildsByTimeComponent implements OnInit {
   @Input() hideDetails = true;
-  @Output() chartData: (string | number)[][];
+  @Input() public chartData: (string | number)[][];
 
-  constructor(private testCaseStatusService: TestCaseStatusService) { }
+  constructor(private randomDataService: RandomDataService) { }
 
   ngOnInit() {
-    this.testCaseStatusService.byTimeComponentObservable.subscribe(data => this.chartData = data);
+    const data = [
+      this.randomDataService.getRandomTestSuite('Random Data 1'),
+      this.randomDataService.getRandomTestSuite('Random Data'),
+      this.randomDataService.getRandomTestSuite('Random Data')
+    ]
+    .reduce((data, suite) => {
+      suite.testCases.forEach(testCase => {
+        data[testCase.key] = data[testCase.key] || [];
+        data[testCase.key].push(testCase.count);
+      })
+      return data;
+    }, {});
+    setTimeout(() => {
+      this.chartData = Object.keys(data).map(key => {
+        return [key].concat(data[key]);
+      })
+    })
   }
 }

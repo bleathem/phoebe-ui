@@ -1,5 +1,4 @@
 import { Component, Input, Output, OnInit } from '@angular/core';
-import { TestCaseStatusService } from '../../data-mock/test-case-status.service'
 import { Store } from '@ngrx/store';
 import { AppStore } from '../../app.store';
 import { PackageBuild, TestCase, TestSuite } from '../../pipeline/pipeline.model';
@@ -21,7 +20,7 @@ export class TestCaseStatusByPipelineRunComponent implements OnInit {
   @Input() public chartData: Observable<PackageBuild[]>;
   dataLoaded: Subject<any> = new Subject();
 
-  constructor(private testCaseStatusService: TestCaseStatusService, private store: Store<AppStore>) {
+  constructor(private store: Store<AppStore>) {
     const chartData = store
     .select(state => state.pipelineReducer.selectedPipeline && state.pipelineReducer.selectedPipeline.packageBuilds)
     .filter(state => !!state)

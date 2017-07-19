@@ -10,6 +10,7 @@ export class TestCasesToPieChartPipe implements PipeTransform {
     const pieChartData = testCases.map(testCase => {
       return [testCase.key, testCase.count];
     });
+    console.log(pieChartData)
     return pieChartData;
   }
 }

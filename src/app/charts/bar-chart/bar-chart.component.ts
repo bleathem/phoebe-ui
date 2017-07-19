@@ -25,10 +25,10 @@ export class BarChartComponent implements OnInit, OnChanges {
     ];
     const groupedColors = {
       pattern: [
-        patternfly.pfPaletteColors.red,
         patternfly.pfPaletteColors.blue,
-        patternfly.pfPaletteColors.orange,
-        patternfly.pfPaletteColors.green
+        patternfly.pfPaletteColors.red,
+        patternfly.pfPaletteColors.purple,
+        patternfly.pfPaletteColors.orange
       ]
     };
 

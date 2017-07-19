@@ -2,7 +2,6 @@ import { TestBed, async } from '@angular/core/testing';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 import { ReportsModule } from './reports/reports.module';
-import { DataMockModule } from './data-mock/data-mock.module';
 import { PipelineModule } from './pipeline/pipeline.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PipelineXhrModule } from './pipeline/pipeline-xhr/pipeline-xhr.module';
@@ -29,7 +28,6 @@ describe('AppComponent', () => {
         ReportsModule,
         PipelineModule,
         PipelineXhrModule,
-        DataMockModule,
         NotificationsModule,
         StoreModule.provideStore({
           pipelineReducer,

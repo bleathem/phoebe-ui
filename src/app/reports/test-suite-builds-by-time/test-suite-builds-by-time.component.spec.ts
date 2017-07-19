@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChartsModule } from '../../charts/charts.module';
-import { DataMockModule } from '../../data-mock/data-mock.module';
+import { PipelineXhrModule } from '../../pipeline/pipeline-xhr/pipeline-xhr.module';
 import { TestSuiteBuildsByTimeComponent } from './test-suite-builds-by-time.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapsiblePanelComponent } from '../collapsible-panel/collapsible-panel.component';
@@ -13,7 +13,7 @@ describe('TestSuiteBuildsByTimeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TestSuiteBuildsByTimeComponent, CollapsiblePanelComponent ],
-      imports: [ BrowserAnimationsModule, ChartsModule, DataMockModule ]
+      imports: [ BrowserAnimationsModule, ChartsModule, PipelineXhrModule ]
     })
     .compileComponents();
   }));
