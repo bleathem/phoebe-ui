@@ -12,3 +12,5 @@ mv /tmp/s2i/src $HOME/src
 pushd ${HOME}
 npm install
 npm run build --prod
+
+popd
