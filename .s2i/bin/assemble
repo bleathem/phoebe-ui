@@ -5,15 +5,21 @@ echo "Current folder:"
 pwd
 echo "Home folder:"
 echo $HOME
+ls -la
 if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
   echo "Restoring build artifacts."
   mv /tmp/s2i/artifacts/* ./
 else
   echo "No artifacts to restore."
+  echo "/tmp"
+  ls -la /tmp
+  echo "/tmp/s2i"
+  ls -la /tmp/s2i
 fi
 
 echo "move the application source"
-ls /tmp/src
+echo "/tmp/src"
+ls -la /tmp/src
 mv /tmp/src/* ./
 
 echo "Installing npm dependencies"
