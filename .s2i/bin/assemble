@@ -19,6 +19,8 @@ mv /tmp/src/* ./
 echo "Installing npm dependencies"
 NODE_ENV=development npm install
 
+npm install -g @angular/cli
+
 echo "npm install complete.  Running ng build..."
 npm run build --prod
 
