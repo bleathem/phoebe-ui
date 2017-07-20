@@ -19,11 +19,25 @@ fi
 
 echo "move the application source"
 echo "/tmp/src"
-ls -la /tmp/src
-mv /tmp/src/* ./
+# ls -la /tmp/src
+# mv /tmp/src/* ./
+#
+# echo "Installing npm dependencies"
+# NODE_ENV=development npm install
 
-echo "Installing npm dependencies"
-NODE_ENV=development npm install
+#!/bin/bash
+echo "Before assembling"
+
+/usr/libexec/s2i/assemble
+rc=$?
+
+if [ $rc -eq 0 ]; then
+    echo "After successful assembling"
+else
+    echo "After failed assembling"
+fi
+
+ls -la
 
 echo "npm install complete.  Running ng build..."
 # npm run build --prod
