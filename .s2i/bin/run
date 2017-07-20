@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # run the application
-./node_modules/.bin/http-server dist/ -a localhost -p8080
+./node_modules/.bin/http-server dist/ -a 0.0.0.0 -p8080
