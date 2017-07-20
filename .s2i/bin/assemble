@@ -13,6 +13,8 @@ mv /tmp/src/* ./
 
 # build application artifacts
 NODE_ENV=development npm install -d
+
+echo "npm install complete.  Running ng build..."
 npm run build --prod
 
 # Fix source directory permissions
