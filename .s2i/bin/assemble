@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # restore build artifacts
+echo "Current folder:"
+pwd
+echo "Home folder:"
+echo $HOME
 if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
   echo "Restoring build artifacts."
   mv /tmp/s2i/artifacts/* ./
@@ -8,14 +12,15 @@ else
   echo "No artifacts to restore."
 fi
 
-# move the application source
+echo "move the application source"
+ls /tmp/src
 mv /tmp/src/* ./
 
-# build application artifacts
-NODE_ENV=development npm install -d
+echo "Installing npm dependencies"
+NODE_ENV=development npm install
 
 echo "npm install complete.  Running ng build..."
 npm run build --prod
 
-# Fix source directory permissions
+echo "Fix source directory permissions"
 fix-permissions ./
