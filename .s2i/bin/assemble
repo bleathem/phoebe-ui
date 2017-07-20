@@ -2,7 +2,10 @@
 
 # restore build artifacts
 if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
-    mv /tmp/s2i/artifacts/* ./
+  echo "Restoring build artifacts."
+  mv /tmp/s2i/artifacts/* ./
+else
+  echo "No artifacts to restore."
 fi
 
 # move the application source
