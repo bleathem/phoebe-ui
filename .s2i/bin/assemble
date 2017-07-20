@@ -1,7 +1,5 @@
 #!/bin/bash
 
-pushd ${HOME}
-
 # restore build artifacts
 if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
     mv /tmp/s2i/artifacts/* ./
@@ -11,10 +9,8 @@ fi
 mv /tmp/src/* ./
 
 # build application artifacts
-npm install -d
+NODE_ENV=development npm install -d
 npm run build --prod
 
 # Fix source directory permissions
 fix-permissions ./
-
-popd >/dev/null
