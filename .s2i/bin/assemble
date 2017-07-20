@@ -1,16 +1,20 @@
 #!/bin/bash
 
+pushd ${HOME}
+
 # restore build artifacts
 if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
-    mv /tmp/s2i/artifacts/* $HOME/.
+    mv /tmp/s2i/artifacts/* ./
 fi
 
 # move the application source
-mv /tmp/s2i/src $HOME/src
+mv /tmp/src/* ./
 
 # build application artifacts
-pushd ${HOME}
-npm install
+npm install -d
 npm run build --prod
 
-popd
+# Fix source directory permissions
+fix-permissions ./
+
+popd >/dev/null
