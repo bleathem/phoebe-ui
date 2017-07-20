@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # run the application
-npm run prod
+./node_modules/.bin/http-server dist/ -a localhost -p8080

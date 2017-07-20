@@ -19,10 +19,9 @@ mv /tmp/src/* ./
 echo "Installing npm dependencies"
 NODE_ENV=development npm install
 
-npm install -g @angular/cli
-
 echo "npm install complete.  Running ng build..."
-npm run build --prod
+# npm run build --prod
+./node_modules/.bin/ng build --prod
 
 echo "Fix source directory permissions"
 fix-permissions ./
