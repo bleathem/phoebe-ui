@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Run on OpenShift:
 ```
-oc new-app ryanj/centos7-s2i-nodejs:current~https://github.com/bleathem/phoebe-ui.git
+oc new-app centos/nodejs-6-centos7~https://github.com/bleathem/phoebe-ui.git
 ```
 
 when the build is complete, and the pod is running, expose the service:
