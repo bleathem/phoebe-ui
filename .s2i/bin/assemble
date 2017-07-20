@@ -5,16 +5,15 @@ echo "Current folder:"
 pwd
 echo "Home folder:"
 echo $HOME
-ls -la
-if [ "$(ls /tmp/s2i/artifacts/ 2>/dev/null)" ]; then
-  echo "Restoring build artifacts."
-  mv /tmp/s2i/artifacts/* ./
-else
-  echo "No artifacts to restore."
-  echo "/tmp"
-  ls -la /tmp
-  echo "/tmp/s2i"
-  ls -la /tmp/s2i
+
+echo "ls -la /tmp"
+ls -la /tmp/
+if [ "$(ls /tmp/artifacts 2>/dev/null)" ]; then
+    echo "Copying node modules"
+    mkdir -p ./node_modules
+    mv /tmp/artifacts/node_modules/* ./node_modules/
+    echo "ls -la ./"
+    ls -la ./
 fi
 
 /usr/libexec/s2i/assemble
